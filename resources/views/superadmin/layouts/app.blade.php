@@ -8,7 +8,7 @@
     <meta name="description" content="Responsive Admin Dashboard Template">
     <meta name="keywords" content="admin,dashboard">
     <meta name="author" content="stacks">
-    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <!-- Title -->
     <title>{{ $title ?? '-' }} | Ayocekin</title>
@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <link href="{{ url('') }}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url('') }}/assets/plugins/perfectscroll/perfect-scrollbar.css" rel="stylesheet">
-    <link href="{{ url('') }}/assets/plugins/pace/pace.css" rel="stylesheet">
+    {{-- <link href="{{ url('') }}/assets/plugins/pace/pace.css" rel="stylesheet"> --}}
     @yield('css-library')
     
     <!-- Theme Styles -->
@@ -511,11 +511,20 @@
     <script src="{{ url('') }}/assets/plugins/jquery/jquery-3.5.1.min.js"></script>
     <script src="{{ url('') }}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ url('') }}/assets/plugins/perfectscroll/perfect-scrollbar.min.js"></script>
-    <script src="{{ url('') }}/assets/plugins/pace/pace.min.js"></script>
+    {{-- <script src="{{ url('') }}/assets/plugins/pace/pace.min.js"></script> --}}
     <script src="{{ url('') }}/assets/plugins/apexcharts/apexcharts.min.js"></script>
     <script src="{{ url('') }}/assets/js/main.min.js"></script>
     @yield('js-library')
     <script src="{{ url('') }}/assets/js/custom.js"></script>
+    <script>
+        // Global
+        let baseUrl = '{{ url('') }}';
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @yield('js')
 </body>
 </html>
