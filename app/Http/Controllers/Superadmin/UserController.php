@@ -55,7 +55,7 @@ class UserController extends Controller
     {
         // Variable
         $data = [
-            'title' => 'Tambah User',
+            'title' => 'Add User',
             'url' => $this->url,
             'breadcrumb' => [
                 'Dashboard',
@@ -107,7 +107,23 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        // Get Data
+        $users = $this->mUser->where('id', $id)->first();
+
+        // Variable
+        $data = [
+            'title' => 'Detail User',
+            'url' => $this->url,
+            'breadcrumb' => [
+                'Dashboard',
+                '-'
+            ],
+            'userId' => $id,
+            'users' => $users,
+        ];
+
+        // View
+        return view("$this->views/show", $data);
     }
 
     /**
@@ -123,7 +139,7 @@ class UserController extends Controller
 
         // Variable
         $data = [
-            'title' => 'Daftar User',
+            'title' => 'Edit User',
             'url' => $this->url,
             'breadcrumb' => [
                 'Dashboard',
