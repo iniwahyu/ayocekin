@@ -18,6 +18,9 @@
                     <div class="col-lg-6">
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
                     </div>
+                    <div class="col-lg-6">
+                        <a href="{{ url("$url") }}" class="btn btn-primary btn-sm float-end">Kembali</a>
+                    </div>
                 </div>
             </div>
             <form action="{{ url("$url") }}" method="post" enctype="multipart/form-data">
@@ -72,6 +75,11 @@
 @section('js')
 <script>
     $(function() {
+        // Get Role
+        $.getJSON(baseUrl + '/master/role', (result) => {
+            let opt = '<option value="">Pilih </option>';
+        });
+
         // Photo
         $(".dropify").dropify();
     });

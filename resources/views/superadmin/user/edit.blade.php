@@ -18,6 +18,9 @@
                     <div class="col-lg-6">
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
                     </div>
+                    <div class="col-lg-6">
+                        <a href="{{ url("$url/$userId") }}" class="btn btn-primary btn-sm float-end">Kembali</a>
+                    </div>
                 </div>
             </div>
             <form action="{{ url("$url/$userId") }}" method="post" enctype="multipart/form-data">
