@@ -7,6 +7,12 @@ Route::get('/', function () {
 });
 
 /**
+ * GLOBAL
+ */
+// Master
+Route::get('/master/role', 'MasterController@role');
+
+/**
  * 
  */
 // Dashboard
