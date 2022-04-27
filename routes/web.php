@@ -23,3 +23,5 @@ Route::get('/superadmin/user/get-data', 'Superadmin\UserController@getData');
 Route::resource('/superadmin/user', 'Superadmin\UserController');
 
 // User Role
+Route::get('/superadmin/userrole/get-data', 'Superadmin\UserRoleController@getData');
+Route::resource('/superadmin/userrole', 'Superadmin\UserRoleController');
