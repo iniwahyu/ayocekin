@@ -7,6 +7,12 @@ Route::get('/', function () {
 });
 
 /**
+ * AUTH
+ */
+Route::get('/bunker/login', 'AuthController@loginBunker');
+Route::post('/bunker/login-proses', 'AuthController@loginBunkerProses');
+
+/**
  * GLOBAL
  */
 // Master
