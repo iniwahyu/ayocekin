@@ -24,6 +24,9 @@ Route::get('/master/role', 'MasterController@role');
 // Dashboard
 Route::resource('/superadmin/dashboard', 'Superadmin\DashboardController');
 
+// Profie
+Route::resource('/superadmin/profile', 'Superadmin\ProfileController');
+
 // User
 Route::get('/superadmin/user/get-data', 'Superadmin\UserController@getData');
 Route::resource('/superadmin/user', 'Superadmin\UserController');
