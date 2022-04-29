@@ -14,6 +14,7 @@ use DataTables;
 
 // Load Model
 use App\Models\UserModel;
+use App\Models\Profile;
 
 class UserController extends Controller
 {
@@ -23,6 +24,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->mUser = new UserModel();
+        $this->mProfile = new Profile();
     }
 
     /**
@@ -93,7 +95,13 @@ class UserController extends Controller
             'sandi' => $request->password,
             'status' => $request->status,
         ];
-        $this->mUser->create($dataUser);
+        $users = $this->mUser->create($dataUser);
+
+        // Table profile
+        $dataProfile = [
+            'idUser' => $users->id(),
+        ];
+        $this->mProfile->create($dataProfile);
 
         // Response
         return redirect("$this->url")->with('success', 'Berhasil Menambahkan User');
