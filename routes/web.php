@@ -7,6 +7,15 @@ Route::get('/', function () {
 });
 
 /**
+ * LANDING
+ */
+// Home
+Route::get('/', 'Landing\HomeController@index');
+
+// Product
+Route::get('/product/{slug?}', 'Landing\ProductController@index');
+
+/**
  * AUTH
  */
 Route::get('/bunker/login', 'AuthController@loginBunker');
@@ -34,3 +43,7 @@ Route::resource('/superadmin/user', 'Superadmin\UserController');
 // User Role
 Route::get('/superadmin/userrole/get-data', 'Superadmin\UserRoleController@getData');
 Route::resource('/superadmin/userrole', 'Superadmin\UserRoleController');
+
+// Game
+Route::get('/superadmin/game/get-data', 'Superadmin\GameMasterController@getData');
+Route::resource('/superadmin/game', 'Superadmin\GameMasterController');
