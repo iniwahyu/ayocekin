@@ -10,7 +10,6 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use File;
-use DataTables;
 
 // Load Model
 use App\Models\UserModel;
@@ -223,7 +222,7 @@ class UserController extends Controller
     public function getData(Request $request)
     {
         $data = $this->mUser->getUser();
-        return Datatables::of($data)
+        return \DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('status', function($data) {
                     switch ($data->status) {
