@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
-    <title>Micko - Index</title>
+    <title>{{ $title ?? '-' }} | Ayocekin</title>
 
     <link rel="icon" type="image/png" href="{{ url('') }}/assets_landing/images/fav.png">
 
@@ -20,6 +20,8 @@
     <link href="{{ url('') }}/assets_landing/vendor/OwlCarousel/assets/owl.carousel.css" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    @yield('css-library')
+    @yield('css')
 </head>
 
 <body>
@@ -378,8 +380,10 @@
     <script src="{{ url('') }}/assets_landing/js/jquery.min.js"></script>
     <script src="{{ url('') }}/assets_landing/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url('') }}/assets_landing/vendor/OwlCarousel/owl.carousel.js"></script>
+    @yield('js-library')
     <script src="{{ url('') }}/assets_landing/js/custom.js"></script>
     <script src="{{ url('') }}/assets_landing/js/night-mode.js"></script>
+    @yield('js')
 </body>
 
 </html>
