@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // appLandingTemplate
+        view()->share('appLanding', 'landing/layouts/app');
+
         // appAdminTemplate
         view()->share('appSuperadmin', 'superadmin/layouts/app');
     }
