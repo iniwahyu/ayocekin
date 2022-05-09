@@ -21,6 +21,12 @@
     <link href="{{ url('') }}/assets_landing/vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     @yield('css-library')
+    <style>
+        .btn-custom-1 {
+            background: #686de0;
+            color: #fff !important;
+        }
+    </style>
     @yield('css')
 </head>
 
@@ -32,7 +38,7 @@
                     <button class="navbar-toggler align-self-start" type="button">
                         <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
                     </button>
-                    <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" href="index.html">
+                    <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" href="{{ url('/') }}">
                         <div class="res_main_logo">
                             <img src="{{ url('') }}/assets_landing/images/res-logo.png" alt="">
                         </div>
@@ -41,200 +47,24 @@
                             <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
                         </div>
                     </a>
-                    <form class="search-form-header order-lg-0 order-md-1 order-md-0">
-                        <input class="search-form-control" type="search" placeholder="Search..." aria-label="Search">
-                        <button class="search-btn btn-color btn-hover"><i class="fas fa-search"></i></button>
-                    </form>
                     <div class="collapse navbar-collapse bg-micko-nav p-3 p-lg-0 mt-6 mt-lg-0 d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu" id="navbarSupportedContent">
                         <ul class="navbar-nav align-self-stretch">
                             <li class="nav-item">
-                                <a class="nav-link active" href="index.html">Home</a>
+                                <a class="nav-link" href="{{ url('/') }}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="find_connections.html">Find Connections</a>
+                                <a class="nav-link" href="{{ url('product') }}">Produk</a>
                             </li>
+                            @if (session()->get('is_login') == false)
                             <li class="nav-item">
-                                <a class="nav-link" href="all_jobs.html">Jobs</a>
+                                <a class="nav-link btn-custom-1" href="{{ url('login') }}">Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="all_products.html">Shop</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="all_learning.html">Learning</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link page-link-btn" href="#" role="button" data-bs-toggle="dropdown">Pages<i class="fas fa-caret-down ms-2"></i></a>
-                                <ul class="dropdown-menu pages-dropdown">
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Other Pages</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="about_us.html">About Us</a></li>
-                                            <li><a class="dropdown-item channel_item" href="contact_us.html">Contact Us</a></li>
-                                            <li><a class="dropdown-item channel_item" href="messages.html">Messages</a></li>
-                                            <li><a class="dropdown-item channel_item" href="badges.html">Badges</a></li>
-                                            <li><a class="dropdown-item channel_item" href="setting.html">Setting</a></li>
-                                            <li><a class="dropdown-item channel_item" href="all_notifications.html">All Notifications</a></li>
-                                            <li><a class="dropdown-item channel_item" href="feedback.html">Feedback</a></li>
-                                            <li><a class="dropdown-item channel_item" href="help_center.html">Help Center</a></li>
-                                            <li><a class="dropdown-item channel_item" href="coming_soon.html">Coming Soon</a></li>
-                                            <li><a class="dropdown-item channel_item" href="error_404.html">Error 404</a></li>
-                                            <li><a class="dropdown-item channel_item" href="privacy_policy.html">Privacy Policy</a></li>
-                                            <li><a class="dropdown-item channel_item" href="terms_of_use.html">Terms of Use</a></li>
-                                            <li><a class="dropdown-item channel_item" href="request_refund_policy.html">Refund Policy</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Sign In</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="sign_in.html">Sign In</a></li>
-                                            <li><a class="dropdown-item channel_item" href="sign_up.html">Sign Up</a></li>
-                                            <li><a class="dropdown-item channel_item" href="sign_up_steps.html">Sign Up Steps</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Cart & Checkout</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="cart.html">Cart</a></li>
-                                            <li><a class="dropdown-item channel_item" href="checkout.html">Checkout</a></li>
-                                            <li><a class="dropdown-item channel_item" href="invoice.html">Invoice</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Upload</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="upload.html">Upload</a></li>
-                                            <li><a class="dropdown-item channel_item" href="post_a_job.html">Post a Job</a></li>
-                                            <li><a class="dropdown-item channel_item" href="add_product.html">Add Product</a></li>
-                                            <li><a class="dropdown-item channel_item" href="add_course.html">Add Course</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Products</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="all_products.html">All Products</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_product_detail_view.html">My Product Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="product_detail_view.html">Product Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_portfolio.html">Manage Products</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Courses</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="all_learning.html">All Learning</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_course_detail_view.html">My Course Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="course_detail_view.html">Course Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_courses.html">Manage Courses</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Jobs</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="all_jobs.html">All Jobs</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_job_detail_view.html">My Job Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="job_detail_view.html">Job Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_manage_jobs.html">Manage Jobs</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Profiles</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="my_profile_dashboard.html">My Profile View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="user_profile_timeline.html">User Profile View</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Create</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="create.html">Create</a></li>
-                                            <li><a class="dropdown-item channel_item" href="create_page.html">Create Page</a></li>
-                                            <li><a class="dropdown-item channel_item" href="create_group.html">Create Group</a></li>
-                                            <li><a class="dropdown-item channel_item" href="create_event.html">Create Event</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Pages</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="my_page_home.html">My Page Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="page_home.html">Page Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="suggested_pages.html">Suggested Pages</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_pages.html">My Pages</a></li>
-                                            <li><a class="dropdown-item channel_item" href="liked_pages.html">Liked Pages</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Groups</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="my_group_home.html">My Group Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="group_home.html">Group Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="suggested_groups.html">Suggested Groups</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_groups.html">My Groups</a></li>
-                                            <li><a class="dropdown-item channel_item" href="joined_groups.html">Joined Groups</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Events</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="my_event_detail_view.html">My Event Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="event_detail_view.html">Event Detail View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="discover_events.html">Discover Events</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_events.html">My Events</a></li>
-                                            <li><a class="dropdown-item channel_item" href="birthday_events.html">Birthday</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Connections</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="find_connections.html">Find Connections</a></li>
-                                            <li><a class="dropdown-item channel_item" href="my_connections.html">My Connections</a></li>
-                                            <li><a class="dropdown-item channel_item" href="pending_invitations_received.html">Pending Invitations</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Hashtags</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="following_hashtags.html">Following Hashtags</a></li>
-                                            <li><a class="dropdown-item channel_item" href="suggested_hashtags.html">Suggested Hashtags</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Refunds</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="refunds.html">Refunds</a></li>
-                                            <li><a class="dropdown-item channel_item" href="request_a_refund.html">Request a Refund</a></li>
-                                            <li><a class="dropdown-item channel_item" href="refund_request_open.html">Refund Request Open</a></li>
-                                            <li><a class="dropdown-item channel_item" href="refund_request_closed.html">Refund Request Closed</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item channel_item dropdown-page-items" href="#">Forums</a>
-                                        <ul class="submenu dropdown-menu">
-                                            <li><a class="dropdown-item channel_item" href="forums.html">Our Fourms</a></li>
-                                            <li><a class="dropdown-item channel_item" href="forum_topics.html">Forum Topics</a></li>
-                                            <li><a class="dropdown-item channel_item" href="forum_topic_view.html">Forum Topic View</a></li>
-                                            <li><a class="dropdown-item channel_item" href="forum_topic_reply.html">Reply</a></li>
-                                            <li><a class="dropdown-item channel_item" href="create_new_topic.html">Create New Topic</a></li>
-                                            <li><a class="dropdown-item channel_item" href="forum_members.html">Forum Members</a></li>
-                                            <li><a class="dropdown-item channel_item" href="forum_search.html">Forum Search</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            @endif
                         </ul>
                     </div>
+                    @if (session()->get('is_login') == true)
                     <div class="msg-noti-acnt-section order-2">
                         <ul class="mn-icons-set align-self-stretch">
-                            <li class="mn-icon">
-                                <a class="mn-link" href="messages.html" role="button">
-                                    <i class="fas fa-envelope"></i>
-                                    <div class="alert-circle"></div>
-                                </a>
-                            </li>
-                            <li class="mn-icon">
-                                <a class="mn-link" href="all_notifications.html" role="button">
-                                    <i class="fas fa-bell"></i>
-                                    <div class="alert-circle"></div>
-                                </a>
-                            </li>
                             <li class="mn-icon dropdown dropdown-account">
                                 <a href="#" class="opts_account" role="button" data-bs-toggle="dropdown">
                                     <img src="{{ url('') }}/assets_landing/images/left-imgs/img-1.jpg" alt="">
@@ -278,6 +108,7 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                 </div>
             </nav>
             <div class="overlay"></div>
@@ -291,79 +122,20 @@
     </div>
 
     <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-items">
-                        <h4>About</h4>
-                        <ul class="footer-links">
-                            <li><a href="about_us.html">About Us</a></li>
-                            <li><a href="our_blog.html">Blog</a></li>
-                            <li><a href="#">Career</a></li>
-                            <li><a href="#">Press</a></li>
-                            <li><a href="contact_us.html">Contact Us</a></li>
-                            <li><a href="#">Mobile App</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-items">
-                        <h4>My Networks</h4>
-                        <ul class="footer-links">
-                            <li><a href="my_connections.html">Connections</a></li>
-                            <li><a href="my_connections.html">People You Know</a></li>
-                            <li><a href="my_pages.html">Pages</a></li>
-                            <li><a href="my_groups.html">Groups</a></li>
-                            <li><a href="following_hashtags.html">Hashtags</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-items">
-                        <h4>Interests</h4>
-                        <ul class="footer-links">
-                            <li><a href="suggested_pages.html">Companies</a></li>
-                            <li><a href="all_jobs.html">Jobs</a></li>
-                            <li><a href="all_products.html">Shops</a></li>
-                            <li><a href="all_learning.html">Learning</a></li>
-                            <li><a href="suggested_hashtags.html">Popular Hashtags</a></li>
-                            <li><a href="forums.html">Forums</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="footer-items">
-                        <h4>Business Services</h4>
-                        <ul class="footer-links">
-                            <li><a href="#">Become an Micko Author</a></li>
-                            <li><a href="#">Become an Instructor</a></li>
-                            <li><a href="#">Become an Affiliate</a></li>
-                            <li><a href="#">Advertise</a></li>
-                            <li><a href="help_center.html">Help Center</a></li>
-                            <li><a href="feedback.html">Feedback</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-bottom-items">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="footer-bottom-links">
                             <div class="footer-logo" id="logo-footer">
-                                <a href="index.html"><img src="{{ url('') }}/assets_landing/images/logo.png" alt=""></a>
+                                <a href="{{ url('/') }}"><img src="{{ url('') }}/assets_landing/images/logo.png" alt=""></a>
                                 <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
                             </div>
-                            <ul class="ul-ft-links">
-                                <li><a href="terms_of_use.html">Terms of Use</a></li>
-                                <li><a href="privacy_policy.html">Privacy Policy</a></li>
-                                <li><a href="request_refund_policy.html">Request Refund</a></li>
-                                <li><a href="about_us.html">About</a></li>
-                                <li><a href="contact_us.html">Contact Us</a></li>
-                            </ul>
+                            <div class="footer-description py-3">
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda enim nisi adipisci illum at temporibus voluptatem accusantium ipsum, corrupti voluptatum beatae molestias, qui minus. Cupiditate voluptates quia ullam est et?</p>
+                            </div>
                             <div class="micko-copyright">
-                                <p><i class="fas fa-copyright"></i>Copyright 2021 Micko by <a href="#">Gambolthemes</a>. All Right Reserved.</p>
+                                <p><i class="fas fa-copyright"></i>Copyright {{ date('Y') }}. All Right Reserved.</p>
                             </div>
                             <ul class="social-ft-links">
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
