@@ -24,7 +24,7 @@ class HomeController extends Controller
     {
         // Variable
         $data = [
-            'title' => 'Halaman Rahasia',
+            'title' => 'Jual Beli Voucher Game',
             'url' => $this->url,
             'breadcrumb' => [
                 'Dashboard',
@@ -34,5 +34,32 @@ class HomeController extends Controller
 
         // View
         return view("$this->views/index", $data);
+    }
+
+    public function login()
+    {
+        // Variable
+        $data = [
+            'title' => 'Halaman Login',
+            'url' => $this->url,
+            'breadcrumb' => [
+                'Dashboard',
+                '-'
+            ],
+        ];
+
+        // View
+        return view("$this->views/login", $data);
+    }
+
+    public function loginProses(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function logout()
+    {
+        session()->flush();
+        return redirect('/');
     }
 }
