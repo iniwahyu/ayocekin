@@ -9,6 +9,11 @@ Route::get('/', function () {
 /**
  * LANDING
  */
+// Auth
+Route::get('/login', 'Landing\HomeController@login');
+Route::post('/login-proses', 'Landing\HomeController@loginProses');
+Route::get('/logout', 'Landing\HomeController@logout');
+
 // Home
 Route::get('/', 'Landing\HomeController@index');
 

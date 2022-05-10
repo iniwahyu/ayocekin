@@ -10,6 +10,7 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 use Str;
 use File;
+// use DataTables;
 
 // Load Model
 use App\Models\UserModel;

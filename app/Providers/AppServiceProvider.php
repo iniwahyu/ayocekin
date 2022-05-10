@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // appLandingTemplate
         view()->share('appLanding', 'landing/layouts/app');
+        view()->share('appAuthLanding', 'landing/layouts/app_auth');
 
         // appAdminTemplate
         view()->share('appSuperadmin', 'superadmin/layouts/app');
