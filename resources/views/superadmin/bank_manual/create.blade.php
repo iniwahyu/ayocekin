@@ -26,12 +26,33 @@
             <form action="{{ url("$url") }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" id="iNama" class="form-control" name="nama" required>
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nama Bank</label>
+                                <input type="text" id="nama" class="form-control" name="nama" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Kode Bank</label>
+                                <input type="text" id="nama" class="form-control" name="kode" required>
+                            </div>
+                            <div class="form-group">
+                                <label>No. Rekening</label>
+                                <input type="text" id="nama" class="form-control" name="rekening" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Pemegang Rekening</label>
+                                <input type="text" id="nama" class="form-control" name="nama_pemegang" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input type="file" class="dropify" name="photo" data-default-file="" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

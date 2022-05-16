@@ -23,10 +23,10 @@
             <a href="{{ url('') }}/superadmin/game"><i class="material-icons-two-tone">cloud_queue</i>Game</a>
         </li>
         <li>
-            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Produk Game</a>
+            <a href="{{ url('') }}/superadmin/game_produk"><i class="material-icons-two-tone">inbox</i>Produk Game</a>
         </li>
         <li>
-            <a href="mailbox.html"><i class="material-icons-two-tone">inbox</i>Cara Pembayaran</a>
+            <a href="{{ url('') }}/superadmin/pembayaran"><i class="material-icons-two-tone">inbox</i>Cara Pembayaran</a>
         </li>
         <li class="sidebar-title">
             Pesanan

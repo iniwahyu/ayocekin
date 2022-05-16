@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use DB;
 
 // Load Model
+use App\Models\GameMaster;
+use App\Models\GameProduk;
 
 class ProductController extends Controller
 {
@@ -17,11 +19,16 @@ class ProductController extends Controller
 
     public function __construct()
     {
-
+        $this->mGame = new GameMaster();
+        $this->mGameProduk = new GameProduk();
     }
 
-    public function index()
+    public function index($slug = null)
     {
+        // Get Data
+        $games = $this->mGame->selectRaw('id, nama, deskripsi')->where('slug', $slug)->first();
+        $products = $this->mGameProduk->selectRaw('id, nama, img, harga')->where('idGMaster', $games->id)->get();
+
         // Variable
         $data = [
             'title' => 'Produk',
@@ -30,6 +37,8 @@ class ProductController extends Controller
                 'Dashboard',
                 '-'
             ],
+            'games' => $games,
+            'products' => $products,
         ];
 
         // View

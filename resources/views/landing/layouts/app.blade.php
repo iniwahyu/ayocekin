@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=9">
     <meta name="description" content="Gambolthemes">
     <meta name="author" content="Gambolthemes">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? '-' }} | Ayocekin</title>
 
     <link rel="icon" type="image/png" href="{{ url('') }}/assets_landing/images/fav.png">
@@ -155,6 +156,14 @@
     @yield('js-library')
     <script src="{{ url('') }}/assets_landing/js/custom.js"></script>
     <script src="{{ url('') }}/assets_landing/js/night-mode.js"></script>
+    <script>
+        let baseUrl = '{{ url('') }}';
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     @yield('js')
 </body>
 

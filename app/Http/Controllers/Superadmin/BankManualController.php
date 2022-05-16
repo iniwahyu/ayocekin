@@ -12,31 +12,28 @@ use Str;
 use File;
 use DataTables;
 
-use App\Models\GameMaster;
-use App\Models\GameProduk;
-use App\Models\GambarProduk;
+use App\Models\BankManual;
 
-class GameProdukController extends Controller
+class BankManualController extends Controller
 {
-    private $views      = '/superadmin/game_produk';
-    private $url        = '/superadmin/game_produk';
-    private $title      = 'Halaman Kelola Produk Game';
+    private $views      = '/superadmin/bank_manual';
+    private $url        = '/superadmin/pembayaran';
+    private $title      = 'Halaman Kelola Bank Manual';
 
     public function __construct()
     {
-        $this->mGame            = new GameMaster();
-        $this->mGameProduk      = new GameProduk();
-        $this->mGambarProduk    = new GambarProduk();
+        $this->mManual = new BankManual();
+    
     }
 
     public function index()
     {
-        $game = $this->mGame->all();
+        $manual = $this->mManual->all();
 
         $data = [
             'title'         => $this->title,
             'url'           => $this->url,
-            'game'          => $game
+            'manual'          => $manual
         ];
         // View
         return view($this->views . "/index", $data);
@@ -44,14 +41,9 @@ class GameProdukController extends Controller
 
     public function create()
     {
-        $game           = $this->mGame->all();
-        $gambarProduk   = $this->mGambarProduk->all();
-
         $data = [
-            'title'         => 'Halaman Tambah Produk Game',
+            'title'         => 'Halaman Tambah Bank Manual',
             'url'           => $this->url,
-            'game'          => $game,
-            'gambarProduk'  => $gambarProduk
         ];
         // View
         return view($this->views . "/create", $data);
@@ -63,46 +55,27 @@ class GameProdukController extends Controller
         if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
             $fileName   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/game/produk/", $fileName);
-
-            $dataGambarProduk = [
-                'idGMaster' => $request->idGMaster,
-                'idUser'    => session()->get('users_id'),
-                'img'       => $fileName
-            ];
-            $this->mGambarProduk->create($dataGambarProduk);
+            $file->move(public_path(). "/upload/bank/", $fileName);
         }
-
-        if($request->has('sebelum')){
-            $fileName = $request->sebelum;
-        }
-
-        // echo json_encode($request->all()); die;
-
+        
         // Table user
-        $dataGameProduk = [
+        $dataBankManual = [
             'idUser'    => session()->get('users_id'),
-            'idGMaster' => $request->idGMaster,
+            'idPayment'      => '2',
             'nama'      => $request->nama,
-            'harga'     => $request->harga,
+            'kode'      => $request->kode,
+            'rekening'  => $request->rekening,
+            'nama_pemegang'  => $request->nama_pemegang,
             'img'       => $fileName ?? null,
         ];
-        $this->mGameProduk->create($dataGameProduk);
+        $this->mManual->create($dataBankManual);
 
-        return redirect("$this->url")->with('success', 'Berhasil Menambahkan Produk Game');
+        return redirect("$this->url")->with('success', 'Berhasil Menambahkan Rekening Bank');
     }
 
     public function show($id)
     {
-        $gameProduk         = $this->mGameProduk->where('idGMaster', $id)->get();
-
-        $data = [
-            'title'         => $this->title,
-            'url'           => $this->url,
-            'gameProduk'    => $gameProduk
-        ];
-        // View
-        return view($this->views . "/show", $data);
+        //
     }
 
     public function edit($id)

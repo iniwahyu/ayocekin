@@ -54,19 +54,21 @@
 {{-- List --}}
 <h3>Produk</h3>
 <div class="row product">
-    @for ($i = 0; $i < 12; $i++)
+    @foreach ($games as $game)
     <div class="col col-xl-2 col-md-4 col-sm-4 col-xs-4">
-        <a href="{{ url("/product/nama") }}">
+        <a href="{{ url("/product/" . $game->slug) }}">
             <div class="full-width card mb-30">
                 <div class="card-body p-0">
-                    <img src="https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg" alt="" class="img-fluid">
+                    <img src="{{ url('upload/game/' . $game->img) }}" alt="" class="img-fluid">
                     <div class="title text-center p-3">
-                        <h5 class="card-title mb-0">Mobile Legends</h5>
+                        <h5 class="card-title mb-0">{{ $game->nama }}</h5>
                     </div>
                 </div>
             </div>
         </a>
     </div>
+    @endforeach
+    @for ($i = 0; $i < 12; $i++)
     @endfor
 </div>
 @endsection

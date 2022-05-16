@@ -26,12 +26,25 @@
             <form action="{{ url("$url") }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group">
-                        <label>Nama</label>
-                        <input type="text" id="iNama" class="form-control" name="nama" required>
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary">SIMPAN</button>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Nama Game</label>
+                                <input type="text" id="nama" class="form-control" name="nama" value="{{ $game->nama }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi Game</label>
+                                <textarea name="deskripsi" class="form-control" cols="30" rows="5">{{ $game->deskripsi }}</textarea>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary">SIMPAN</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <input type="file" class="dropify" name="photo" data-default-file="" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

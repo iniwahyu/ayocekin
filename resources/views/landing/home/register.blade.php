@@ -16,13 +16,13 @@
 @endsection
 
 @section('content')
-<form action="{{ url('login-proses') }}" method="post">
+<form action="{{ url('register-proses') }}" method="post">
     @csrf
     <div class="row justify-content-center">
         <div class="col col-xl-6">
             <div class="full-width mb-30 card">
                 <div class="card-header">
-                    <h4 class="mb-0">Halaman Login</h4>
+                    <h4 class="mb-0">Halaman Register</h4>
                 </div>
                 <div class="card-body">
                     <div class="form-group">
@@ -34,7 +34,7 @@
                         <input type="password" id="iPassword" class="form-control" name="password" placeholder="****" required>
                     </div>
                     <div class="form-group mt-2">
-                        <button type="submit" class="main-save-btn color btn-hover">Login</button>
+                        <button type="submit" class="main-save-btn color btn-hover">Daftar</button>
                     </div>
                 </div>
             </div>

@@ -41,9 +41,12 @@ class GameMasterController extends Controller
 
     public function create()
     {
+        $game = $this->mGame->where('id', $id)->first();
+        
         $data = [
             'title'         => 'Halaman Tambah Game',
             'url'           => $this->url,
+            'game'          => $game
         ];
         // View
         return view($this->views . "/create", $data);
@@ -77,7 +80,12 @@ class GameMasterController extends Controller
 
     public function edit($id)
     {
-        //
+        $data = [
+            'title'         => 'Halaman Edit Game',
+            'url'           => $this->url,
+        ];
+        // View
+        return view($this->views . "/edit", $data);
     }
 
     public function update(Request $request, $id)
@@ -99,7 +107,7 @@ class GameMasterController extends Controller
                 ->addIndexColumn()
                 ->addColumn('actions', function($data){
                     $html = '<div class="btn-group">
-                                <a href="'.url("$this->url/$data->id").'" class="btn btn-primary btn-sm"><i class="material-icons">info</i></a>
+                                <a href="'.url("$this->url/$data->id/edit").'" class="btn btn-primary btn-sm"><i class="material-icons">edit</i></a>
                                 <a href="javascript:void(0);" class="btn btn-danger btn-sm delete" data-id="'.$data->id.'"><i class="material-icons">delete</i></a>
                             </div>';
                     return $html;

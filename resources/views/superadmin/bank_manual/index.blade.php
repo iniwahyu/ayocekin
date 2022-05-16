@@ -19,7 +19,7 @@
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Data</a>
+                        <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Produk</a>
                     </div>
                 </div>
             </div>
@@ -29,18 +29,22 @@
                         <tr>
                             <th>No</th>
                             <th>Logo</th>
-                            <th>Nama</th>
-                            <th>Harga</th>
+                            <th>Nama Bank</th>
+                            <th>Kode</th>
+                            <th>No. Rekening</th>
+                            <th>Pemegang Rekening</th>
                             <th width="10%">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($gameProduk as $gp)
+                        @foreach ($manual as $m)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><img src="https://ayocekin.com/upload/game/produk/{{ $gp->img }}" style="width:25px;height:25px;" alt=""></td>
-                                <td>{{ $gp->nama }}</td>
-                                <td>{{ $gp->harga }}</td>
+                                <td><img src="https://ayocekin.com/upload/bank/{{ $m->img }}" style="width:25px;height:25px;" alt=""></td>
+                                <td>{{ $m->nama }}</td>
+                                <td>{{ $m->kode }}</td>
+                                <td>{{ $m->rekening }}</td>
+                                <td>{{ $m->nama_pemegang }}</td>
                                 <td>Aksi</td>
                             </tr>
                         @endforeach
