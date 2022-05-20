@@ -15,6 +15,7 @@ use App\Models\BankManual;
 use App\Models\GameProduk;
 use App\Models\GameMaster;
 use App\Models\Order;
+use App\Models\OrderInvoice;
 
 class PaymentController extends Controller
 {
@@ -23,10 +24,11 @@ class PaymentController extends Controller
 
     public function __construct()
     {
-        $this->mBankManual = new BankManual();
-        $this->mGameProduk = new GameProduk();
-        $this->mGameMaster = new GameMaster();
-        $this->mOrder = new Order();
+        $this->mBankManual      = new BankManual();
+        $this->mGameProduk      = new GameProduk();
+        $this->mGameMaster      = new GameMaster();
+        $this->mOrder           = new Order();
+        $this->mOrderInvoice    = new OrderInvoice();
     }
 
     public function order(Request $request)
@@ -47,9 +49,9 @@ class PaymentController extends Controller
             // die;
         }
         // Variable Session
-        $serviceId = session()->get('order')['services'];
-        $paymentId = session()->get('order')['payment'];
-        $paymentDetailId = session()->get('order')['payment_detail'];
+        $serviceId          = session()->get('order')['services'];
+        $paymentId          = session()->get('order')['payment'];
+        $paymentDetailId    = session()->get('order')['payment_detail'];
 
         // Get Data
         $services = $this->mGameMaster->getGameProdukDetail($serviceId)->first();
@@ -98,20 +100,35 @@ class PaymentController extends Controller
             $file->move(public_path(). "/upload/proof/", $fileName);
         }
 
+        $kode_invoice  = strtoupper(bin2hex(random_bytes(5)));
+
         // Table order
-        // 1: Pembayaran Berhasil, 2:Pembayaran Tertunda, 3:Pembayaran Invalid, 4: Pembayaran Gagal
+        // payment status
+        // 1: Pending, 2: Tertunda, 3:Invalid, 4: Gagal, 5: di Konfirmasi
+        // status transaksi
+        // 1: Pending, 2:DiKonfirmasi, 3:Proses, 4: Selesai, 5: di Tolak
         $dataOrder = [
-            'idGMaster' => $services->game_id,
-            'idGProduk' => $services->product_id,
-            'idUser' => 1,
-            'log_akun' => session()->get('order')['user_id'] ?? null,
-            'log_server' => session()->get('order')['server_id'] ?? null,
-            'status' => 2,
-            'img' => $fileName ?? null,
-            'idPayment' => $paymentId,
-            'log_payment' => $paymentDetail->nama,
+            'idGMaster'         => $services->game_id,
+            'idGProduk'         => $services->product_id,
+            'idUser'            => 1,
+            'status'            => 'Pending',
+            'payment_status'    => 'Pending',
+            'img'               => $fileName ?? null,
+            'idPayment'         => $paymentId,
+            'kode_invoice'      => $kode_invoice,
+            'log_payment'       => $paymentDetail->nama, // isi bank-norek (admin)
+            'log_akun'          => session()->get('order')['user_id'] ?? null,
+            'log_server'        => session()->get('order')['server_id'] ?? null,
         ];
         $this->mOrder->create($dataOrder);
+
+        $dataInvoice = [
+            'idUser'            => 1,
+            'kode_invoice'      => $kode_invoice,
+            'status'            => 'Pending',
+            'payment_status'    => 'Pending',
+        ];
+        $this->mOrderInvoice->create($dataOrder);
 
         // Remove Session
         session()->forget('order');

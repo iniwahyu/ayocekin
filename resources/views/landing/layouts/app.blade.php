@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? '-' }} | Ayocekin</title>
 
-    <link rel="icon" type="image/png" href="{{ url('') }}/assets_landing/images/fav.png">
+    <link rel="icon" type="image/png" href="{{ url('') }}/assets_landing/images/logo.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&amp;display=swap" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/css/style.css" rel="stylesheet">
@@ -44,7 +44,7 @@
                             <img src="{{ url('') }}/assets_landing/images/res-logo.png" alt="">
                         </div>
                         <div class="main_logo" id="logo">
-                            <img src="{{ url('') }}/assets_landing/images/logo.png" alt="">
+                            <img src="{{ url('') }}/assets_landing/images/logo-tulisan.png" alt="" style="width: 5%;"">
                             <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
                         </div>
                     </a>
@@ -129,7 +129,7 @@
                     <div class="col-md-12">
                         <div class="footer-bottom-links">
                             <div class="footer-logo" id="logo-footer">
-                                <a href="{{ url('/') }}"><img src="{{ url('') }}/assets_landing/images/logo.png" alt=""></a>
+                                <a href="{{ url('/') }}"><img src="{{ url('') }}/assets_landing/images/logo-tulisan.png" alt=""></a>
                                 <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
                             </div>
                             <div class="footer-description py-3">

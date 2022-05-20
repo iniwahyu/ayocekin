@@ -32,7 +32,7 @@
             Pesanan
         </li>
         <li>
-            <a href="todo.html"><i class="material-icons-two-tone">done</i>Order Topup</a>
+            <a href="{{ url('') }}/superadmin/order"><i class="material-icons-two-tone">done</i>Order Topup</a>
         </li>
         <li class="sidebar-title">
             Kelola Akun

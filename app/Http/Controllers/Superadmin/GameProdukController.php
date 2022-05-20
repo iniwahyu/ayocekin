@@ -107,17 +107,64 @@ class GameProdukController extends Controller
 
     public function edit($id)
     {
-        //
+        $game           = $this->mGame->all();
+        $gameProduk     = $this->mGameProduk->where('id', $id)->first();
+        $gambarProduk   = $this->mGambarProduk->all();
+        
+        $data = [
+            'title'         => 'Halaman Edit Produk Game',
+            'url'           => $this->url,
+            'game'          => $game,
+            'gameProduk'    => $gameProduk,
+            'gambarProduk'  => $gambarProduk
+        ];
+        return view($this->views . "/edit", $data);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        // Photo
+        if ($request->hasFile('photo')) {
+            $file       = $request->file('photo');
+            $fileName   = Str::uuid()."-".time().".".$file->extension();
+            $file->move(public_path(). "/upload/game/produk/", $fileName);
+
+            $dataGambarProduk = [
+                'idGMaster' => $request->idGMaster,
+                'idUser'    => session()->get('users_id'),
+                'img'       => $fileName
+            ];
+            $this->mGambarProduk->create($dataGambarProduk);
+        }
+
+        if($request->has('sebelum')){
+            $fileName = $request->sebelum;
+        }
+
+        // echo json_encode($request->all()); die;
+
+        // Table user
+        $dataGameProduk = [
+            'idUser'    => session()->get('users_id'),
+            'nama'      => $request->nama,
+            'harga'     => $request->harga,
+            'img'       => $fileName ?? null,
+        ];
+        $this->mGameProduk->where('id', $id)->update($dataGameProduk);
+
+        return redirect("$this->url")->with('success', 'Berhasil Merubah Produk Game');
     }
 
     public function destroy($id)
     {
-        //
+        $gameProduk = $this->mGameProduk->where('id', $id)->first();
+        $this->mGameProduk->destroy($id);
+        
+        $data = [
+            'message' => "Produk Game ".$gameProduk->nama." Berhasil di hapus"
+        ];
+
+        return $data;
     }
 
     public function getData(Request $request)

@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GameProduk extends Model
+class OrderInvoice extends Model
 {
     use HasFactory;
 
-    protected $table = 'game_produk';
+    protected $table = 'order_invoice';
     
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
@@ -20,8 +20,9 @@ class GameProduk extends Model
 
     protected $guarded = ['id'];
 
-    public function game()
+    public function pembeli()
     {
-        return $this->belongsTo(GameMaster::class, 'idGMaster', 'id');
+        return $this->belongsTo(UserModel::class, 'idUser', 'id');
     }
+
 }

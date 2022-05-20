@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class GameMaster extends Model
 {
@@ -32,5 +33,35 @@ class GameMaster extends Model
         $query->join('game_produk AS gp', 'gp.idGMaster', '=', 'gm.id');
         $query->where('gp.id', $productGameId);
         return $query;
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($GameMaster) {
+
+            $GameMaster->slug = $GameMaster->createSlug($GameMaster->nama);
+
+            $GameMaster->save();
+        });
+    }
+
+    private function createSlug($nama)
+    {
+        if (static::whereSlug($slug = Str::slug($nama))->exists()) {
+
+            $max = static::whereNama($nama)->latest('id')->skip(1)->value('slug');
+
+            if (isset($max[-1]) && is_numeric($max[-1])) {
+
+                return preg_replace_callback('/(\d+)$/', function ($mathces) {
+
+                    return $mathces[1] + 1;
+                }, $max);
+            }
+            return "{$slug}-2";
+        }
+        return $slug;
     }
 }

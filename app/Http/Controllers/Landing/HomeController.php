@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 // Load Model
 use App\Models\GameMaster;
 use App\Models\UserModel;
+use App\Models\Profile;
 
 class HomeController extends Controller
 {
@@ -22,6 +23,7 @@ class HomeController extends Controller
     {
         $this->mGame = new GameMaster();
         $this->mUser = new UserModel();
+        $this->mProfile = new Profile();
     }
 
     public function index()
@@ -76,7 +78,13 @@ class HomeController extends Controller
             'idURole' => 3,
             'status' => 1,
         ];
-        $this->mUser->create($dataUser);
+        $users = $this->mUser->create($dataUser);
+
+        // Table profile
+        $dataProfile = [
+            'idUser' => $users->id,
+        ];
+        $this->mProfile->create($dataProfile);
 
         // Response
         return redirect('login')->with('success', 'Registrasi Berhasil');
@@ -141,7 +149,7 @@ class HomeController extends Controller
         session($session);
 
         // Response
-        return redirect('profile')->with('success', 'Berhasil Login');
+        return redirect('setting/profile')->with('success', 'Berhasil Login');
     }
 
     public function logout()

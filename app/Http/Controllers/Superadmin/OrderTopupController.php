@@ -12,28 +12,28 @@ use Str;
 use File;
 use DataTables;
 
-use App\Models\BankManual;
+use App\Models\Order;
+use App\Models\OrderInvoice;
 
-class BankManualController extends Controller
+class OrderTopupController extends Controller
 {
-    private $views      = '/superadmin/bank_manual';
-    private $url        = '/superadmin/pembayaran';
-    private $title      = 'Halaman Kelola Bank Manual';
+    private $views      = '/superadmin/order';
+    private $url        = '/superadmin/order';
+    private $title      = 'Halaman Kelola Order Topup';
 
     public function __construct()
     {
-        $this->mManual = new BankManual();
-    
+        $this->mOrderInvoice = new OrderInvoice();
     }
 
     public function index()
     {
-        $manual = $this->mManual->all();
+        $orderInvoice = $this->mOrderInvoice->all();
 
         $data = [
             'title'         => $this->title,
             'url'           => $this->url,
-            'manual'          => $manual
+            'orderInvoice'         => $orderInvoice,
         ];
         // View
         return view($this->views . "/index", $data);
@@ -41,9 +41,11 @@ class BankManualController extends Controller
 
     public function create()
     {
+        $qserver = $this->mQServer->all();
         $data = [
-            'title'         => 'Halaman Tambah Bank Manual',
+            'title'         => 'Halaman Tambah Game',
             'url'           => $this->url,
+            'qserver'          => $qserver
         ];
         // View
         return view($this->views . "/create", $data);
@@ -55,22 +57,24 @@ class BankManualController extends Controller
         if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
             $fileName   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/bank/", $fileName);
+            $file->move(public_path(). "/upload/game/", $fileName);
         }
-        
-        // Table user
-        $dataBankManual = [
-            'idUser'        => session()->get('users_id'),
-            'idPayment'     => '2',
-            'nama'          => $request->nama,
-            'kode'          => $request->kode,
-            'rekening'      => $request->rekening,
-            'nama_pemegang' => $request->nama_pemegang,
-            'img'           => $fileName ?? null,
-        ];
-        $this->mManual->create($dataBankManual);
 
-        return redirect("$this->url")->with('success', 'Berhasil Menambahkan Rekening Bank');
+        // $slug = $this->createSlug($request->nama);
+        // $slug = Str::slug('Laravel 5 Framework', '-');
+        // echo $slug; die;
+
+        // Table user
+        $dataGame = [
+            'idUser'    => session()->get('users_id'),
+            'nama'      => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'qserver'   => $request->qserver,
+            'img'       => $fileName ?? null,
+        ];
+        $this->mGame->create($dataGame);
+
+        return redirect("$this->url")->with('success', 'Berhasil Menambahkan Game');
     }
 
     public function show($id)
@@ -80,45 +84,48 @@ class BankManualController extends Controller
 
     public function edit($id)
     {
-        $manual = $this->mManual->where('id', $id)->first();
+        $game = $this->mGame->where('id', $id)->first();
+        $qserver = $this->mQServer->all();
         
         $data = [
-            'title'         => 'Halaman Perbarui Bank Manual',
+            'title'         => 'Halaman Edit Game',
             'url'           => $this->url,
-            'manual'        => $manual,
+            'game'          => $game,
+            'qserver'          => $qserver
         ];
         return view($this->views . "/edit", $data);
     }
 
     public function update(Request $request, $id)
     {
-         // Photo
-         if ($request->hasFile('photo')) {
+        // Photo
+        if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
             $fileName   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/bank/", $fileName);
+            $file->move(public_path(). "/upload/game/", $fileName);
         }
 
         // Table user
-        $dataBankManual = [
-            'nama'          => $request->nama,
-            'kode'          => $request->kode,
-            'rekening'      => $request->rekening,
-            'nama_pemegang' => $request->nama_pemegang,
-            'img'           => $fileName ?? null,
+        $dataGame = [
+            'idUser'    => session()->get('users_id'),
+            'nama'      => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'qserver'   => $request->qserver,
+            'img'       => $fileName ?? null,
         ];
-        $this->mManual->where('id', $id)->update($dataBankManual);
+        $this->mGame->where('id', $request->idGame)->update($dataGame);
 
-        return redirect("$this->url")->with('sukses', 'Informasi Bank Manual Berhasil Di Perbarui');
+        return redirect("$this->url")->with('sukses', 'Game Berhasil Di Perbarui');
     }
 
     public function destroy($id)
     {
-        $manual = $this->mManual->where('id', $id)->first();
-        $this->mManual->destroy($id);
+
+        $game = $this->mGame->where('id', $id)->first();
+        $this->mGame->destroy($id);
         
         $data = [
-            'message' => "Bank Manual ".$manual->nama." Berhasil di hapus"
+            'message' => "Game ".$game->nama." Berhasil di hapus"
         ];
 
         return $data;
@@ -126,14 +133,14 @@ class BankManualController extends Controller
 
     public function getData(Request $request)
     {
-        $data = $this->mGame->all();
+        $orderInvoice = $this->mOrderInvoice->all();
         // echo json_encode($data); die;
 
         return \DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('actions', function($data){
                     $html = '<div class="btn-group">
-                                <a href="'.url("$this->url/$data->id").'" class="btn btn-primary btn-sm"><i class="material-icons">info</i></a>
+                                <a href="'.url("$this->url/$data->id/edit").'" class="btn btn-primary btn-sm"><i class="material-icons">edit</i></a>
                                 <a href="javascript:void(0);" class="btn btn-danger btn-sm delete" data-id="'.$data->id.'"><i class="material-icons">delete</i></a>
                             </div>';
                     return $html;
@@ -144,4 +151,5 @@ class BankManualController extends Controller
                 ->rawColumns(['actions','img'])
                 ->make(true);
     }
+
 }

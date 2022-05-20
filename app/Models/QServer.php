@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GameProduk extends Model
+class QServer extends Model
 {
     use HasFactory;
 
-    protected $table = 'game_produk';
+    protected $table = 'qserver';
     
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
@@ -20,8 +20,4 @@ class GameProduk extends Model
 
     protected $guarded = ['id'];
 
-    public function game()
-    {
-        return $this->belongsTo(GameMaster::class, 'idGMaster', 'id');
-    }
 }

@@ -34,7 +34,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Deskripsi Game</label>
-                                <textarea name="deskripsi" class="form-control" cols="30" rows="5"></textarea>
+                                <textarea name="deskripsi" class="form-control" cols="30" rows="5" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Opsi Pengisian</label>
+                                <select name="qserver" class="form-control" required>
+                                    <option value="">- Pilih Opsi Pengisian -</option>
+                                    @foreach ($qserver as $qs)
+                                        <option value="{{ $qs->id }}">{{ $qs->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
@@ -42,7 +51,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="file" class="dropify" name="photo" data-default-file="" />
+                                <input type="file" class="dropify" name="photo" data-default-file="" required/>
                             </div>
                         </div>
                     </div>

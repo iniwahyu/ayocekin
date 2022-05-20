@@ -23,8 +23,10 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ url("$url") }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url("$url/$game->id") }}" method="post" enctype="multipart/form-data">
+                @method('put')
                 @csrf
+                <input type="hidden" name="idGame" value="{{ $game->id }}">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
@@ -34,8 +36,22 @@
                             </div>
                             <div class="form-group">
                                 <label>Deskripsi Game</label>
-                                <textarea name="deskripsi" class="form-control" cols="30" rows="5">{{ $game->deskripsi }}</textarea>
+                                <textarea name="deskripsi" class="form-control" cols="30" rows="5" required>{{ $game->deskripsi }}</textarea>
                             </div>
+                            <div class="form-group">
+                                <label>Opsi Pengisian</label>
+                                <select name="qserver" class="form-control" required>
+                                    <option value="">- Pilih Opsi Pengisian -</option>
+                                    @foreach ($qserver as $qs)
+                                        @if ($game->qserver == $qs->id)
+                                            <option value="{{ $qs->id }}" selected>{{ $qs->nama }}</option>   
+                                        @else
+                                            <option value="{{ $qs->id }}" >{{ $qs->nama }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
                             </div>

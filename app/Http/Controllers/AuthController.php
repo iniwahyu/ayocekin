@@ -73,7 +73,7 @@ class AuthController extends Controller
         $session = [
             'users_id' => $users->id,
             'username' => $users->username,
-            'roles' => $users->roles,
+            'role' => $users->role,
             'email' => $users->email,
             'isLogin' => 1,
         ];

@@ -36,6 +36,7 @@
                     <div class="form-group mt-2">
                         <button type="submit" class="main-save-btn color btn-hover">Daftar</button>
                     </div>
+                    <p class="mb-0">Sudah punya akun? Silahkan <a href="{{ url('login') }}"><b>Login</b></a></p>
                 </div>
             </div>
         </div>

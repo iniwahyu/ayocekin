@@ -36,6 +36,7 @@
                     <div class="form-group mt-2">
                         <button type="submit" class="main-save-btn color btn-hover">Login</button>
                     </div>
+                    <p class="mb-0">Belum punya akun? Silahkan <a href="{{ url('register') }}"><b>Register</b></a></p>
                 </div>
             </div>
         </div>

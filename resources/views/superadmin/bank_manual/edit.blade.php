@@ -23,26 +23,27 @@
                     </div>
                 </div>
             </div>
-            <form action="{{ url("$url") }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url("$url/$manual->id") }}" method="post" enctype="multipart/form-data">
+                @method('put')
                 @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Nama Bank</label>
-                                <input type="text" id="nama" class="form-control" name="nama" required>
+                                <input type="text" id="nama" class="form-control" name="nama" value="{{ $manual->nama }}" required>
                             </div>
                             <div class="form-group">
                                 <label>Kode Bank</label>
-                                <input type="number" id="nama" class="form-control" name="kode" required>
+                                <input type="number" id="nama" class="form-control" name="kode" value="{{ $manual->kode }}" required>
                             </div>
                             <div class="form-group">
                                 <label>No. Rekening</label>
-                                <input type="number" id="nama" class="form-control" name="rekening" required>
+                                <input type="number" id="nama" class="form-control" name="rekening" value="{{ $manual->rekening }}" required>
                             </div>
                             <div class="form-group">
                                 <label>Nama Pemegang Rekening</label>
-                                <input type="text" id="nama" class="form-control" name="nama_pemegang" required>
+                                <input type="text" id="nama" class="form-control" name="nama_pemegang" value="{{ $manual->nama_pemegang }}" required>
                             </div>
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>

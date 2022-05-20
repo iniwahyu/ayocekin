@@ -45,7 +45,12 @@
                                 <td>{{ $m->kode }}</td>
                                 <td>{{ $m->rekening }}</td>
                                 <td>{{ $m->nama_pemegang }}</td>
-                                <td>Aksi</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ url("$url/$m->id/edit") }}" class="btn btn-primary btn-sm"><i class="material-icons">edit</i></a>
+                                        <a href="javascript:void(0);" class="btn btn-danger btn-sm delete" data-id="{{ $m->id }}"><i class="material-icons">delete</i></a>
+                                    </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -63,6 +68,39 @@
 
 @section('js')
 <script>
-    
+    // Delete
+    $("#datatable1").on("click", ".delete", function() {
+        let dataId = $(this).data("id");
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Data yang Sudah Terhapus, Tidak Bisa Kembali",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Hapus Sekarang!',
+            cancelButtonText: "Batal!",
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-outline-danger ml-1'
+            },
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: "{{ url("$url") }}/" + dataId,
+                    success: (result) => {
+                        Swal.fire({
+                            title: "Berhasil!",
+                            text: ""+result.message+"",
+                            icon: "success",
+                        })
+                        setTimeout(() => {
+                            window.location.href = baseUrl + '{{ $url }}';
+                        }, 1000);
+                    }
+                })
+            }
+        });
+    });
 </script>
 @endsection
