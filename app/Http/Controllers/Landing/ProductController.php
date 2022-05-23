@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index($slug = null)
     {
         // Get Data
-        $games = $this->mGame->selectRaw('id, nama, deskripsi')->where('slug', $slug)->first();
+        $games = $this->mGame->selectRaw('id, nama, img, deskripsi')->where('slug', $slug)->first();
         $products = $this->mGameProduk->selectRaw('id, nama, img, harga')->where('idGMaster', $games->id)->get();
 
         // Variable

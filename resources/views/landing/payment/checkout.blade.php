@@ -127,7 +127,7 @@
                         <div class="billing-details">
                             <div class="row justify-content-center">
                                 <div class="col-lg-12">
-                                    <input type="file" class="dropify" name="file" data-height="300" />
+                                    <input type="file" class="dropify" required name="file" data-height="300" />
                                 </div>
                             </div>
                         </div>

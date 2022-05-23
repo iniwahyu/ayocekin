@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Auth;
 
-class Admin
+class Buyer
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->get('role') != '1'){
-            return redirect()->to('/bunker/login')->with('error', 'Mohon Untuk Login Terlebih dahulu');
+        if(session()->get('role') != '3'){
+            return redirect()->to('/login')->with('error', 'Mohon Untuk Login Terlebih dahulu');
         }
         return $next($request);
     }

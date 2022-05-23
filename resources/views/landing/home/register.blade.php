@@ -21,6 +21,17 @@
     <div class="row justify-content-center">
         <div class="col col-xl-6">
             <div class="full-width mb-30 card">
+
+                @if (session()->has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session()->has('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <div class="card-header">
                     <h4 class="mb-0">Halaman Register</h4>
                 </div>
@@ -32,6 +43,14 @@
                     <div class="form-group mt-2">
                         <label>Password</label>
                         <input type="password" id="iPassword" class="form-control" name="password" placeholder="****" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="iUsername" class="form-control" name="email" placeholder="Email" autofocus required>
+                    </div>
+                    <div class="form-group">
+                        <label>No. Handphone</label>
+                        <input type="number" id="iUsername" class="form-control" name="phone" placeholder="No. Handphone" autofocus required>
                     </div>
                     <div class="form-group mt-2">
                         <button type="submit" class="main-save-btn color btn-hover">Daftar</button>

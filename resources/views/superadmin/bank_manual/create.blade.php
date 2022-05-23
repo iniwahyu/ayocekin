@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="file" class="dropify" name="photo" data-default-file="" />
+                                <input type="file" class="dropify" name="photo" required data-default-file="" />
                             </div>
                         </div>
                     </div>

@@ -53,17 +53,22 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/') }}">Home</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link" href="{{ url('product') }}">Produk</a>
-                            </li>
-                            @if (session()->get('is_login') == false)
-                            <li class="nav-item">
-                                <a class="nav-link btn-custom-1" href="{{ url('login') }}">Login</a>
-                            </li>
+                            </li> --}}
+                            @if (session()->get('isLogin') == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link btn-custom-1" href="{{ url('logout') }}">Logout</a>
+                                </li>
+                            @else 
+                                <li class="nav-item">
+                                    <a class="nav-link btn-custom-1" href="{{ url('login') }}">Login</a>
+                                </li>
                             @endif
                         </ul>
                     </div>
                     @if (session()->get('is_login') == true)
+                    {{-- @if (session()->get('isLogin') == 1) --}}
                     <div class="msg-noti-acnt-section order-2">
                         <ul class="mn-icons-set align-self-stretch">
                             <li class="mn-icon dropdown dropdown-account">

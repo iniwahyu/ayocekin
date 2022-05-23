@@ -28,6 +28,9 @@
         <li>
             <a href="{{ url('') }}/superadmin/pembayaran"><i class="material-icons-two-tone">inbox</i>Cara Pembayaran</a>
         </li>
+        <li>
+            <a href="#"><i class="material-icons-two-tone">inbox</i>Banner</a>
+        </li>
         <li class="sidebar-title">
             Pesanan
         </li>

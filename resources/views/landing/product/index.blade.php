@@ -30,10 +30,11 @@
 <div class="row">
     <div class="col-xl-3 col-md-12 col-sm-12">
         <div class="mb-30 text-center">
-            <img src="https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg" alt="" class="img-fluid">
+            {{-- <img src="https://cdn1.codashop.com/S/content/mobile/images/product-tiles/mlbb_tile.jpg" alt="" class="img-fluid"> --}}
+            <img src="https://ayocekin.com/upload/game/{{ $games->img }}" class="img-fluid" alt="...">
             <div class="description text-start py-3">
-                <h4>Mobile Legend</h4>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque reprehenderit praesentium sequi id amet similique soluta dolorum distinctio dolore? Optio eligendi ducimus mollitia nobis illum ipsa, fuga minima vero ex.</p>
+                <h4>{{ $games->nama }}</h4>
+                <p>{{ $games->deskripsi }}</p>
             </div>
         </div>
     </div>
@@ -45,16 +46,26 @@
                 <div class="card-header">
                     <h4 class="card-title mb-0">Data Game</h4>
                 </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-12 mb-3">
-                            <input type="text" class="form-control form-control-lg" name="user_id" placeholder="User ID" autofocus autocomplete="off" required>
-                        </div>
-                        <div class="col-xl-6 col-sm-12">
-                            <input type="text" class="form-control form-control-lg" name="server_id" placeholder="Server Game" autocomplete="off" required>
+                @if ($games->qserver==1)
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-12 mb-3">
+                                <input type="text" class="form-control form-control-lg" name="user_id" placeholder="User ID" autofocus autocomplete="off" required>
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                <input type="text" class="form-control form-control-lg" name="server_id" placeholder="Server Game" autocomplete="off" required>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @elseif ($games->qserver==2)
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-12 mb-3">
+                                <input type="text" class="form-control form-control-lg" name="user_id" placeholder="User ID" autofocus autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
             
             {{-- Layanan --}}
@@ -83,44 +94,50 @@
                 </div>
             </div>
     
-            {{-- Payment --}}
-            <div class="full-width mb-30 card">
-                <div class="card-header">
-                    <h4 class="card-title mb-0">Pembayaran</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-6 col-sm-12">
-                            <div class="ppuser-card mb-2 p-5 payment" data-id="1">
-                                <h4 class="job-heading text-center">PEMBAYARAN OTOMATIS</h4>
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-sm-12">
-                            <div class="ppuser-card mb-2 p-5 payment" data-id="2">
-                                <h4 class="job-heading text-center">PEMBAYARAN MANUAL</h4>
-                            </div>
-                        </div>
+            @if (count($products)>0)
+                {{-- Payment --}}
+                <div class="full-width mb-30 card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Pembayaran</h4>
                     </div>
-
-                    <div class="payment-detail my-2">
+                    <div class="card-body">
                         <div class="row">
-                            <div class="payment-detail-additional">
-                                {{-- <div class="col-sm-12">
-                                    <div class="item py-4">
-                                        <div class="product-left">
-                                            <a href="#"><img class="ft-plus-square product-bg-circle bg-cyan mr-0" src="https://cdn1.codashop.com/S/content/common/images/mno/GO_PAY_CHNL_LOGO.png" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                            <div class="col-xl-6 col-sm-12">
+                                <div class="ppuser-card mb-2 p-5 payment" data-id="1">
+                                    <h4 class="job-heading text-center">PEMBAYARAN OTOMATIS</h4>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-sm-12">
+                                <div class="ppuser-card mb-2 p-5 payment" data-id="2">
+                                    <h4 class="job-heading text-center">PEMBAYARAN MANUAL</h4>
+                                </div>
                             </div>
                         </div>
+
+                        <div class="payment-detail my-2">
+                            <div class="row">
+                                <div class="payment-detail-additional">
+                                    {{-- <div class="col-sm-12">
+                                        <div class="item py-4">
+                                            <div class="product-left">
+                                                <a href="#"><img class="ft-plus-square product-bg-circle bg-cyan mr-0" src="https://cdn1.codashop.com/S/content/common/images/mno/GO_PAY_CHNL_LOGO.png" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="serviceDetail" name="services">
+                        <input type="hidden" id="payment" name="payment">
+                        <input type="hidden" id="paymentDetail" name="payment_detail">
+
+                            
+                        <button type="submit" class="act-btn btn-hover">Selesaikan Pesanan</button>
+                            
+                        
                     </div>
-                    <input type="hidden" id="serviceDetail" name="services">
-                    <input type="hidden" id="payment" name="payment">
-                    <input type="hidden" id="paymentDetail" name="payment_detail">
-                    <button type="submit" class="act-btn btn-hover">Selesaikan Pesanan</button>
                 </div>
-            </div>
+            @endif
         </form>
     </div>
 </div>

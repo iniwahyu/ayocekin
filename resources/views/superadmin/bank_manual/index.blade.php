@@ -13,6 +13,17 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
+
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @elseif (session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6">

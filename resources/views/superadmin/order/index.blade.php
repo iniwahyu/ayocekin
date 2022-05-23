@@ -13,7 +13,16 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @elseif (session()->has('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+            {{-- <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6">
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
@@ -22,7 +31,7 @@
                         <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Produk</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="card-body table-responsive">
                 <table id="datatable1" class="table table-striped">
                     <thead>
@@ -41,13 +50,20 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $oi->pembeli->username }}</td>
                                 <td>{{ $oi->kode_invoice }}</td>
-                                <td>{{ $oi->payment_status }}</td>
-                                <td>{{ $oi->status }}</td>
+                                <td>{{ $oi->paymentStatus->nama }}</td>
+                                <td>{{ $oi->statusTransaksi->nama }}</td>
                                 <td>
-                                    <div class="btn-group">
-                                        <a href="{{ url("$url/$oi->id/edit") }}" class="btn btn-primary btn-sm"><i class="material-icons">edit</i></a>
-                                        <a href="javascript:void(0);" class="btn btn-danger btn-sm delete" data-id="{{ $oi->id }}"><i class="material-icons">delete</i></a>
-                                    </div>
+                                    @if ($oi->status==4 || $oi->status==5)
+                                        {{-- <span>btn btn-outline-light txt-dark btn-lg</span> --}}
+                                        <div class="btn btn-outline-primary disabled btn-md">
+                                            <span>SELESAI</span>
+                                        </div>
+                                    @else
+                                        <div class="btn-group btn-group-square" role="group" aria-label="">
+                                            <a href="{{ url("$url/" . $oi->kode_invoice, []) }}/edit" class="btn btn-primary" title="Beri Respon">RESPON</a>
+                                            {{-- <a href="javascript:void(0);" class="btn btn-danger" title="Hapus Data">Hapus</a> --}}
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -67,6 +83,7 @@
 @section('js')
 <script>
     $(function() {
+        $('#datatable1').DataTable();
         // Datatable
         // $("#datatable1").DataTable({
         //     processing: true,

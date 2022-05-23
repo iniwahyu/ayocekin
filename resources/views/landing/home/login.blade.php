@@ -21,6 +21,17 @@
     <div class="row justify-content-center">
         <div class="col col-xl-6">
             <div class="full-width mb-30 card">
+
+                @if (session()->has('success'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session()->has('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                
                 <div class="card-header">
                     <h4 class="mb-0">Halaman Login</h4>
                 </div>

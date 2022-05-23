@@ -25,4 +25,14 @@ class OrderInvoice extends Model
         return $this->belongsTo(UserModel::class, 'idUser', 'id');
     }
 
+    public function statusTransaksi()
+    {
+        return $this->belongsTo(OrderStatus::class, 'status', 'id');
+    }
+
+    public function paymentStatus()
+    {
+        return $this->belongsTo(PaymentStatus::class, 'payment_status', 'id');
+    }
+
 }

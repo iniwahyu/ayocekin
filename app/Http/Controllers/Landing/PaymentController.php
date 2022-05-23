@@ -16,6 +16,7 @@ use App\Models\GameProduk;
 use App\Models\GameMaster;
 use App\Models\Order;
 use App\Models\OrderInvoice;
+use App\Models\OrderLog;
 
 class PaymentController extends Controller
 {
@@ -29,6 +30,7 @@ class PaymentController extends Controller
         $this->mGameMaster      = new GameMaster();
         $this->mOrder           = new Order();
         $this->mOrderInvoice    = new OrderInvoice();
+        $this->mOrderLog        = new OrderLog();
     }
 
     public function order(Request $request)
@@ -100,42 +102,73 @@ class PaymentController extends Controller
             $file->move(public_path(). "/upload/proof/", $fileName);
         }
 
-        $kode_invoice  = strtoupper(bin2hex(random_bytes(5)));
+        $invoiceCode  = strtoupper(bin2hex(random_bytes(5)));
+        $invoiceCode = date('dmY').'-'.$invoiceCode;
 
-        // Table order
-        // payment status
-        // 1: Pending, 2: Tertunda, 3:Invalid, 4: Gagal, 5: di Konfirmasi
-        // status transaksi
-        // 1: Pending, 2:DiKonfirmasi, 3:Proses, 4: Selesai, 5: di Tolak
-        $dataOrder = [
-            'idGMaster'         => $services->game_id,
-            'idGProduk'         => $services->product_id,
-            'idUser'            => 1,
-            'status'            => 'Pending',
-            'payment_status'    => 'Pending',
-            'img'               => $fileName ?? null,
-            'idPayment'         => $paymentId,
-            'kode_invoice'      => $kode_invoice,
-            'log_payment'       => $paymentDetail->nama, // isi bank-norek (admin)
-            'log_akun'          => session()->get('order')['user_id'] ?? null,
-            'log_server'        => session()->get('order')['server_id'] ?? null,
-        ];
-        $this->mOrder->create($dataOrder);
 
-        $dataInvoice = [
-            'idUser'            => 1,
-            'kode_invoice'      => $kode_invoice,
-            'status'            => 'Pending',
-            'payment_status'    => 'Pending',
-        ];
-        $this->mOrderInvoice->create($dataOrder);
+        // jika payment manual maka bayar=harga
+        if($paymentId==2){
+
+            $dataInvoice = [
+                'idUser'            => session()->get('users_id'),
+                'kode_invoice'      => $invoiceCode,
+                'status'            => 1,
+                'payment_status'    => 1,
+            ];
+            $this->mOrderInvoice->create($dataInvoice);
+
+
+            $gameProduk     = $this->mGameProduk->where('id', $services->product_id)->first();
+
+            // Table order
+            // payment status
+            // 1: Pending, 2: Tertunda, 3:Invalid, 4: Gagal, 5: di Terima
+            // status transaksi
+            // 1: Pending, 2:DiKonfirmasi, 3:Proses, 4:di Tolak , 5: Selesai
+            $dataOrder = [
+                'idGMaster'         => $services->game_id,
+                'idGProduk'         => $services->product_id,
+                'idUser'            => session()->get('users_id'),
+                'status'            => 1,
+                'payment_status'    => 1,
+                'img'               => $fileName ?? null,
+                'idPayment'         => $paymentId,
+                'kode_invoice'      => $invoiceCode,
+                'payment'           => $paymentDetail->nama.'-'.$paymentDetail->rekening, // isi bank-norek (admin)
+                'akun'              => session()->get('order')['user_id'] ?? null,
+                'server'            => session()->get('order')['server_id'] ?? null,
+                'harga'             => $gameProduk['harga'],
+                'bayar'             => $gameProduk['harga'],
+            ];
+            $simpanOrder = $this->mOrder->create($dataOrder);
+
+            // log order
+            $dataOrderLog = [
+                'idOrder'           => $simpanOrder['id'],
+                'kode_invoice'      => $invoiceCode,
+                'game'              => $simpanOrder->game->nama,
+                'gameProduk'        => $simpanOrder->gameProduk->nama,
+                'akun'              => session()->get('order')['user_id'] ?? null,
+                'server'            => session()->get('order')['server_id'] ?? null,
+                'harga'             => $gameProduk['harga'],
+                'bayar'             => $gameProduk['harga'],
+                'status'            => 1,
+                'status_payment'    => 1,
+                'payment'           => $paymentDetail->nama.'-'.$paymentDetail->rekening, // isi bank-norek (admin)
+                'payment_jenis'     => 'Manual',
+                'img'               => $fileName ?? null,
+                'akun_pemesan'      => $simpanOrder->user->username,
+            ];
+            $this->mOrderLog->create($dataOrderLog);
+
+        }
 
         // Remove Session
         session()->forget('order');
         session()->forget('checkout');
         
         // Response
-        return redirect("history");
+        return redirect("setting/history");
     }
 
     // Response JSON
