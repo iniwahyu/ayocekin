@@ -46,7 +46,7 @@ class GameMasterController extends Controller
         $data = [
             'title'         => 'Halaman Tambah Game',
             'url'           => $this->url,
-            'qserver'          => $qserver
+            'qserver'       => $qserver
         ];
         // View
         return view($this->views . "/create", $data);
@@ -61,6 +61,13 @@ class GameMasterController extends Controller
             $file->move(public_path(). "/upload/game/", $fileName);
         }
 
+         // Photo panduan
+         if ($request->hasFile('photo1')) {
+            $file       = $request->file('photo1');
+            $fileName1   = Str::uuid()."-".time().".".$file->extension();
+            $file->move(public_path(). "/upload/game/panduan/", $fileName1);
+        }
+
         // $slug = $this->createSlug($request->nama);
         // $slug = Str::slug('Laravel 5 Framework', '-');
         // echo $slug; die;
@@ -72,6 +79,7 @@ class GameMasterController extends Controller
             'deskripsi' => $request->deskripsi,
             'qserver'   => $request->qserver,
             'img'       => $fileName ?? null,
+            'panduan'   => $fileName1 ?? null,
         ];
         $this->mGame->create($dataGame);
 
@@ -106,13 +114,22 @@ class GameMasterController extends Controller
             $file->move(public_path(). "/upload/game/", $fileName);
         }
 
+        // Photo panduan
+        if ($request->hasFile('photo1')) {
+           $file       = $request->file('photo1');
+           $fileName1   = Str::uuid()."-".time().".".$file->extension();
+           $file->move(public_path(). "/upload/game/panduan/", $fileName1);
+       }
+
+        $game = $this->mGame->where('id', $id)->first();
         // Table user
         $dataGame = [
             'idUser'    => session()->get('users_id'),
             'nama'      => $request->nama,
             'deskripsi' => $request->deskripsi,
             'qserver'   => $request->qserver,
-            'img'       => $fileName ?? null,
+            'img'       => $fileName ?? $game->img,
+            'panduan'   => $fileName1 ?? $game->panduan,
         ];
         $this->mGame->where('id', $request->idGame)->update($dataGame);
 
@@ -149,7 +166,10 @@ class GameMasterController extends Controller
                 ->editColumn('img', function($data){
                     return '<img class="avatar" src="'.url("/upload/game/$data->img").'">';
                 })
-                ->rawColumns(['actions','img'])
+                ->editColumn('panduan', function($data){
+                    return '<img class="avatar" src="'.url("/upload/game/panduan/$data->panduan").'">';
+                })
+                ->rawColumns(['actions','img', 'panduan'])
                 ->make(true);
     }
 

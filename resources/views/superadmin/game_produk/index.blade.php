@@ -42,7 +42,7 @@
                         <tbody>
                             
                             <tr class="text-center">
-                                <td>33</td>
+                                <td>{{ $g->gameProduk->count() }}</td>
                                 {{-- <td>15</td>
                                 <td>18</td> --}}
                             </tr>

@@ -12,7 +12,8 @@
 
     <link rel="icon" type="image/png" href="{{ url('') }}/assets_landing/images/logo.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&amp;display=swap" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&amp;display=swap" rel="stylesheet"> --}}
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/css/style.css" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/css/responsive.css" rel="stylesheet">
     <link href="{{ url('') }}/assets_landing/css/night-mode.css" rel="stylesheet">
@@ -23,9 +24,43 @@
     <link href="{{ url('') }}/assets_landing/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     @yield('css-library')
     <style>
+        .wrapper {
+            background: #F9F9FF;
+        }
+        .navbar {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
         .btn-custom-1 {
-            background: #686de0;
+            background: #1479C9;
             color: #fff !important;
+        }
+        .background-color-primary {
+            background: #1479C9 !important;
+            color: #FFF;
+        }
+        .background-color-secondary {
+            background: #418FD1 !important;
+            color: #FFF;
+        }
+        .background-color-support {
+            background: #F5D62C !important;
+            color: #FFF;
+        }
+        .text-color-primary {
+            color: #1479C9 !important;
+        }
+        .text-color-secondary {
+            color: #F5D62C !important;
+        }
+        .br-25 {
+            border-radius: 25px;
+        }
+        .br-30 {
+            border-radius: 30px;
+        }
+        .content-header h3 {
+            font-size: 36px;
+            font-weight: 800;
         }
     </style>
     @yield('css')
@@ -41,28 +76,44 @@
                     </button>
                     <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 me-auto" href="{{ url('/') }}">
                         <div class="res_main_logo">
-                            <img src="{{ url('') }}/assets_landing/images/res-logo.png" alt="">
+                            <img src="{{ url('') }}/assets_landing/images/logo.png" alt="">
                         </div>
                         <div class="main_logo" id="logo">
                             <img src="{{ url('') }}/assets_landing/images/logo-tulisan.png" alt="" style="width: 5%;"">
-                            <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
+                            <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/logo.png" alt="">
                         </div>
                     </a>
                     <div class="collapse navbar-collapse bg-micko-nav p-3 p-lg-0 mt-6 mt-lg-0 d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu" id="navbarSupportedContent">
                         <ul class="navbar-nav align-self-stretch">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Home</a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ url('product') }}">Produk</a>
-                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Produk</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Kontak</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Tentang</a>
+                            </li>
+
+                            {{-- @if (session()->get('role') == 1)
+                            @endif --}}
+                            
                             @if (session()->get('isLogin') == 1)
+                                <li class="nav-item">
+                                    <a class="nav-link text-color-primary fw-bold" href="{{ url('/setting/profile') }}">Profil</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link btn-custom-1" href="{{ url('logout') }}">Logout</a>
                                 </li>
                             @else 
                                 <li class="nav-item">
-                                    <a class="nav-link btn-custom-1" href="{{ url('login') }}">Login</a>
+                                    <a class="nav-link text-color-primary fw-bold" href="{{ url('register') }}">Daftar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white btn-custom-1" href="{{ url('login') }}">Masuk</a>
                                 </li>
                             @endif
                         </ul>
@@ -168,6 +219,33 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+
+        function countDown(duration, timer) {
+            var sec = duration;
+            if (sec < 10) {
+                myTimer.innerHTML = "0" + sec;
+            } else {
+                myTimer.innerHTML = sec;
+            }
+            if (sec <= 0) {
+                $("#myBtn").removeAttr("disabled");
+                $("#myBtn").removeClass().addClass("btnEnable");
+                $("#myTimer").fadeTo(2500, 0);
+                myBtn.innerHTML = "Click Me!";
+                return;
+            }
+            sec -= 1;
+            window.setTimeout(countDown, 1000);
+        }
     </script>
     @yield('js')
 </body>

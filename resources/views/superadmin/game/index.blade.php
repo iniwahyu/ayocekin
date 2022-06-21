@@ -40,6 +40,7 @@
                             <th>Logo</th>
                             <th>Nama</th>
                             <th>Deskripsi</th>
+                            <th>Panduan</th>
                             <th width="10%">Aksi</th>
                         </tr>
                     </thead>
@@ -79,6 +80,7 @@
                 {data: 'img', name: 'img'},
                 {data: 'nama', name: 'nama'},
                 {data: 'deskripsi', name: 'deskripsi'},
+                {data: 'panduan', name: 'panduan'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
         });

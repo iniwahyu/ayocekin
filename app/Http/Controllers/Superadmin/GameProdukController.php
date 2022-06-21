@@ -143,12 +143,14 @@ class GameProdukController extends Controller
 
         // echo json_encode($request->all()); die;
 
+        $gameProduk     = $this->mGameProduk->where('id', $id)->first();
+
         // Table user
         $dataGameProduk = [
             'idUser'    => session()->get('users_id'),
             'nama'      => $request->nama,
             'harga'     => $request->harga,
-            'img'       => $fileName ?? null,
+            'img'       => $fileName ?? $gameProduk->img,
         ];
         $this->mGameProduk->where('id', $id)->update($dataGameProduk);
 

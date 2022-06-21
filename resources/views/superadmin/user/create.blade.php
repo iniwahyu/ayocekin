@@ -39,7 +39,9 @@
                             <div class="form-group">
                                 <label>Role</label>
                                 <select id="selectRole" class="form-control" name="idURole">
-                                    <option value="1">Super Admin</option>
+                                    {{-- <option value="1">Super Admin</option> --}}
+                                    <option value="2">Admin</option>
+                                    {{-- <option value="3">Buyer</option> --}}
                                 </select>
                             </div>
                             <div class="form-group">

@@ -37,6 +37,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Waktu Transaksi</th>
                             <th>Username Pembeli</th>
                             <th>kode Invoice</th>
                             <th>Status Pembayaran</th>
@@ -48,6 +49,7 @@
                         @foreach ($orderInvoice as $oi)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $oi->create_time }}</td>
                                 <td>{{ $oi->pembeli->username }}</td>
                                 <td>{{ $oi->kode_invoice }}</td>
                                 <td>{{ $oi->paymentStatus->nama }}</td>

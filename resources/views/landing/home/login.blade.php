@@ -48,6 +48,7 @@
                         <button type="submit" class="main-save-btn color btn-hover">Login</button>
                     </div>
                     <p class="mb-0">Belum punya akun? Silahkan <a href="{{ url('register') }}"><b>Register</b></a></p>
+                    <a href="{{ url('forgot') }}">Lupa Kata Sandi?</a>
                 </div>
             </div>
         </div>

@@ -58,7 +58,12 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
+                                <label>Foto Game</label>
                                 <input type="file" class="dropify" name="photo" data-default-file="" />
+                            </div>
+                            <div class="form-group">
+                                <label>Foto Panduan Game</label>
+                                <input type="file" class="dropify" name="photo1" data-default-file="" />
                             </div>
                         </div>
                     </div>

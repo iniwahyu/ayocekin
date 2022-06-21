@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+/**
+ * SANDBOX
+ * ONLY USE TESTING
+ */
+Route::get('/sandbox/mail-register', 'SandboxController@mailRegister');
+Route::get('/sandbox/mail-forgot', 'SandboxController@mailForgot');
+
 // Home
 Route::get('/', 'Landing\HomeController@index');
 
@@ -13,11 +20,20 @@ Route::get('/', 'Landing\HomeController@index');
  * LANDING
  */
 // Auth Buyer
-Route::get('/register', 'Landing\HomeController@register');
-Route::post('/register-proses', 'Landing\HomeController@registerProses');
-Route::get('/login', 'Landing\HomeController@login');
-Route::post('/login-proses', 'Landing\HomeController@loginProses');
-Route::get('/logout', 'Landing\HomeController@logout');
+Route::get('/register', 'Landing\AuthController@register');
+Route::post('/register-proses', 'Landing\AuthController@registerProses');
+Route::get('/activation/{kode?}', 'Landing\AuthController@activation');
+Route::get('/verification/{id?}', 'Landing\AuthController@verification');
+Route::post('/verification-proses', 'Landing\AuthController@verificationProses');
+Route::get('/verification-regenerate/{usersId?}', 'Landing\AuthController@verificationRegenerate');
+Route::get('/thanks', 'Landing\AuthController@thanks');
+Route::get('/forgot', 'Landing\AuthController@forgot');
+Route::post('/forgot-proses', 'Landing\AuthController@forgotProses');
+Route::get('/recoverypass/{code?}', 'Landing\AuthController@recoveryPass');
+Route::put('/recoverypass-proses/{code?}', 'Landing\AuthController@recoveryPassProses');
+Route::get('/login', 'Landing\AuthController@login');
+Route::post('/login-proses', 'Landing\AuthController@loginProses');
+Route::get('/logout', 'Landing\AuthController@logout');
 
 /**
  * AUTH Admin
@@ -30,11 +46,13 @@ Route::middleware(['buyer'])->group(function () {
     // Setting
     // Profile
     Route::get('/setting/profile', 'Landing\Setting\ProfileController@index');
+    Route::put('/setting/profile/update/{profileId?}', 'Landing\Setting\ProfileController@update');
+    Route::put('/setting/profile/update-password/{profileId?}', 'Landing\Setting\ProfileController@updatePassword');
 
     // History
     Route::get('/setting/history/get-data', 'Landing\Setting\HistoryController@getData');
     Route::get('/setting/history', 'Landing\Setting\HistoryController@index');
-
+    Route::get('/setting/history/detail/{codeInvoice?}', 'Landing\Setting\HistoryController@detail');
 
     // Product
     Route::get('/product/{slug?}', 'Landing\ProductController@index');
@@ -46,12 +64,16 @@ Route::middleware(['buyer'])->group(function () {
     Route::post('/payment/paying', 'Landing\PaymentController@paying');
 });
 
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['super'])->group(function () {
     // get data
     Route::get('/master/role', 'MasterController@role');
     Route::get('/superadmin/user/get-data', 'Superadmin\UserController@getData');
     Route::get('/superadmin/userrole/get-data', 'Superadmin\UserRoleController@getData');
     Route::get('/superadmin/game/get-data', 'Superadmin\GameMasterController@getData');
+    Route::get('/superadmin/banner/get-data', 'Superadmin\BannerController@getData');
+
+    // Dashboard
+    Route::get('/superadmin/dashboard/count-topup', 'Superadmin\DashboardController@countTopup');
 
     // resource
     Route::resource('/superadmin/order', 'Superadmin\OrderTopupController');
@@ -61,5 +83,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/superadmin/userrole', 'Superadmin\UserRoleController');
     Route::resource('/superadmin/game', 'Superadmin\GameMasterController');
     Route::resource('/superadmin/game_produk', 'Superadmin\GameProdukController');
-    Route::resource('/superadmin/pembayaran', 'Superadmin\BankManualController');
+    Route::resource('/superadmin/payment_qrcode', 'Superadmin\PaymentQrcodeController');
+    Route::resource('/superadmin/bankManual', 'Superadmin\BankManualController');
+    Route::resource('/superadmin/banner', 'Superadmin\BannerController');
 });

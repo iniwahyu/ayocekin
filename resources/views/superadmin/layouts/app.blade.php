@@ -26,6 +26,14 @@
     <!-- Theme Styles -->
     <link href="{{ url('') }}/assets/css/main.min.css" rel="stylesheet">
     <link href="{{ url('') }}/assets/css/custom.css" rel="stylesheet">
+    <style>
+        .text-color-primary {
+            color: #0169C2;
+        }
+        .text-color-secondary {
+            color: #F5D62C;
+        }
+    </style>
     @yield('css')
     
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('') }}/assets/images/neptune.png" />
@@ -71,6 +79,16 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+    </script>
+    {{-- Custom --}}
+    <script>
+        $(function() {
+            $.getJSON(baseUrl + '/superadmin/dashboard/count-topup', (result) => {
+                $("#countTopup").html(result.order_all);
+                $("#countTopupProcess").html(result.order_process);
+                $("#countTopupPending").html(result.order_pending);
+            });
         });
     </script>
     @yield('js')

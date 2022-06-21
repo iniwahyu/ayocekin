@@ -46,10 +46,80 @@
                             <td class="text-sm-start col-sm-6">{{ $order->gameProduk->nama }}</td>
                         </tr>
                         <tr>
+                            <td class="text-sm-end">Harga Produk</td>
+                            <td>:</td>
+                            <td class="text-sm-start col-sm-6">{{ $order->gameProduk->harga }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm-end">Total Bayar</td>
+                            <td>:</td>
+                            <td class="text-sm-start col-sm-6">{{ $order->bayar }}</td>
+                        </tr>
+                        <tr>
                             <td class="text-sm-end">Username Pembeli</td>
                             <td>:</td>
                             <td class="text-sm-start col-sm-6">{{ $order->user->username }}</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="text-center">Keterangan Pembelian</h3>
+            </div>
+            <div class="card-body">
+                <table id="datatable" class="table text-center">
+                    <tbody>
+                        @if ($qserver==1)
+                            <tr>
+                                <td class="text-sm-end col-sm-6">User ID</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->akun }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-sm-end col-sm-6">Server ID</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->server }}</td>
+                            </tr>
+                        @elseif ($qserver==2)
+                            <tr>
+                                <td class="text-sm-end col-sm-6">User ID</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->akun }}</td>
+                            </tr>
+                        @elseif ($qserver==3)
+                            <tr>
+                                <td class="col-sm-12">Tidak Membutuhkan Informasi Tambahan</td>
+                            </tr>
+                        @elseif ($qserver==4)
+                            <tr>
+                                <td class="text-sm-end col-sm-6">Server ID</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->server }}</td>
+                            </tr>
+                        @elseif ($qserver==5)
+                            <tr>
+                                <td class="text-sm-end col-sm-6">Kingdom Game</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->kingdom }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-sm-end col-sm-6">User ID</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->akun }}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-sm-end col-sm-6">Email Game</td>
+                                <td>:</td>
+                                <td class="text-sm-start col-sm-6">{{ $order->email_game }}</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

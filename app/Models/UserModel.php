@@ -24,6 +24,10 @@ class UserModel extends Model
         'role',
         'sandi',
         'status',
+        'otp',
+        'otp_request',
+        'recovery',
+        'recovery_request'
     ];
 
     public function getUser()

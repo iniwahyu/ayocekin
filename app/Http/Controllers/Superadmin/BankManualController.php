@@ -99,13 +99,15 @@ class BankManualController extends Controller
             $file->move(public_path(). "/upload/bank/", $fileName);
         }
 
+        $manual = $this->mManual->where('id', $id)->first();
+
         // Table user
         $dataBankManual = [
             'nama'          => $request->nama,
             'kode'          => $request->kode,
             'rekening'      => $request->rekening,
             'nama_pemegang' => $request->nama_pemegang,
-            'img'           => $fileName ?? null,
+            'img'           => $fileName ?? $manual->img,
         ];
         $this->mManual->where('id', $id)->update($dataBankManual);
 

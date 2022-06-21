@@ -1,2 +1,27 @@
 u1802176
 5VX98S3uz@jCGD4
+
+== Login Detail ==
+Url Login : https://app.ruangwa.id/login
+Username : AYOCEKIN
+Password : 12345678
+
+Save Your Account !
+
+Alhamdulillah yu kayanya sih tinggal ini hho
+
+- validasi no handphone
+    - depan harus 628
+- verifikasi email
+- pemberitahuan whatsapp jika ada order
+- banner 
+- kelola akun
+    - belum dicek semua
+- tampilan admin
+    - perhitungan header
+    - tampilan2
+    - tampilan login
+- game produk
+    - belum dihitung jumlah produk
+
+    

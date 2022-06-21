@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 class GameMaster extends Model
 {
     use HasFactory;
+    // use SoftDeletes;
 
     protected $table = 'game_master';
     
@@ -33,6 +34,11 @@ class GameMaster extends Model
         $query->join('game_produk AS gp', 'gp.idGMaster', '=', 'gm.id');
         $query->where('gp.id', $productGameId);
         return $query;
+    }
+
+    public function gameProduk()
+    {
+        return $this->hasMany(GameProduk::class, 'idGMaster', 'id');
     }
 
     protected static function boot()

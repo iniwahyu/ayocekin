@@ -11,6 +11,7 @@ use DB;
 // Load Model
 use App\Models\GameMaster;
 use App\Models\GameProduk;
+use App\Models\PaymentQrcode;
 
 class ProductController extends Controller
 {
@@ -21,13 +22,16 @@ class ProductController extends Controller
     {
         $this->mGame = new GameMaster();
         $this->mGameProduk = new GameProduk();
+        $this->mPaymentQr = new PaymentQrcode();
     }
 
     public function index($slug = null)
     {
         // Get Data
-        $games = $this->mGame->selectRaw('id, nama, img, deskripsi')->where('slug', $slug)->first();
+        $games = $this->mGame->selectRaw('id, nama, img, deskripsi, qserver, panduan, create_time')->where('slug', $slug)->first();
         $products = $this->mGameProduk->selectRaw('id, nama, img, harga')->where('idGMaster', $games->id)->get();
+        $paymentManual = DB::table('payment_bank')->get();
+        $paymentQr = $this->mPaymentQr->all();
 
         // Variable
         $data = [
@@ -39,6 +43,8 @@ class ProductController extends Controller
             ],
             'games' => $games,
             'products' => $products,
+            'paymentManual' => $paymentManual,
+            'paymentQr' => $paymentQr,
         ];
 
         // View

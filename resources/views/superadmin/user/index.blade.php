@@ -28,7 +28,7 @@
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Data</a>
+                        <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Admin Baru</a>
                     </div>
                 </div>
             </div>

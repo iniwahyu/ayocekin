@@ -17,6 +17,9 @@ use App\Models\OrderInvoice;
 use App\Models\OrderLog;
 use App\Models\OrderStatus;
 use App\Models\PaymentStatus;
+use App\Models\GameMaster;
+// use App\Models\UserModel;
+use App\Models\Profile;
 
 class OrderTopupController extends Controller
 {
@@ -31,6 +34,9 @@ class OrderTopupController extends Controller
         $this->mOrderLog        = new OrderLog();
         $this->mOrderStatus     = new OrderStatus();
         $this->mPaymentStatus   = new PaymentStatus();
+        $this->mGame            = new GameMaster();
+        // $this->mUser            = new UserModel();
+        $this->mProfile         = new Profile();
     }
 
     public function index()
@@ -60,28 +66,7 @@ class OrderTopupController extends Controller
 
     public function store(Request $request)
     {
-        // Photo
-        if ($request->hasFile('photo')) {
-            $file       = $request->file('photo');
-            $fileName   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/game/", $fileName);
-        }
-
-        // $slug = $this->createSlug($request->nama);
-        // $slug = Str::slug('Laravel 5 Framework', '-');
-        // echo $slug; die;
-
-        // Table user
-        $dataGame = [
-            'idUser'    => session()->get('users_id'),
-            'nama'      => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'qserver'   => $request->qserver,
-            'img'       => $fileName ?? null,
-        ];
-        $this->mGame->create($dataGame);
-
-        return redirect("$this->url")->with('success', 'Berhasil Menambahkan Game');
+        
     }
 
     public function show($id)
@@ -93,6 +78,7 @@ class OrderTopupController extends Controller
     {
         // $orderInvoice   = $this->mOrderInvoice->where('kode_invoice', $id)->first();
         $order          = $this->mOrder->where('kode_invoice', $id)->first();
+        $game = $this->mGame->where('id', $order['idGMaster'])->first();
 
         $orderStatus    = $this->mOrderStatus->all();
         $paymentStatus  = $this->mPaymentStatus->all();
@@ -103,6 +89,7 @@ class OrderTopupController extends Controller
             'url'               => $this->url,
             // 'orderInvoice'      => $orderInvoice,
             'order'             => $order,
+            'qserver'             => $game['qserver'],
             'orderStatus'       => $orderStatus,
             'paymentStatus'     => $paymentStatus,
         ];
@@ -115,18 +102,22 @@ class OrderTopupController extends Controller
         $order          = $this->mOrder->where('kode_invoice', $id)->first();
         $orderStatus    = $this->mOrderStatus->where('id', $request->status)->first();
         $paymentStatus  = $this->mPaymentStatus->where('id', $request->payment_status)->first();
+        // $user           = $this->mUser->where('id', $order['idUser'])->first();
+        $profile        = $this->mProfile->where('idUser', $order['idUser'])->first();
+
+        // echo json_encode($request->all()); die;
 
         $dataOrder = [
             'status'            => $request->status,
             'payment_status'    => $request->payment_status,
         ];
-        $this->mOrder->where('id', $id)->update($dataOrder);
+        $this->mOrder->where('kode_invoice', $id)->update($dataOrder);
 
         $dataOrderInvoice = [
             'status'            => $request->status,
             'payment_status'    => $request->payment_status,
         ];
-        $this->mOrderInvoice->where('id', $id)->update($dataOrderInvoice);
+        $this->mOrderInvoice->where('kode_invoice', $id)->update($dataOrderInvoice);
 
         $dataOrderLog = [
             'idOrder'           => $order['idOrder'],
@@ -148,6 +139,13 @@ class OrderTopupController extends Controller
 
         // echo json_encode($dataOrderLog); die;
         $this->mOrderLog->create($dataOrderLog);
+
+        // jika order selesai
+        if($request->status == 4){
+            // Send Whatsapp
+            $message = 'Terima Kasih Sudah Melakukan Order. Pembayaran Anda sudah di Konfirmasi, Mohon di Tunggu';
+            kirimWhatsapp($profile['phone'], $message, 'express');
+        }
 
         return redirect("$this->url")->with('sukses', 'Status Order Berhasil Di Perbarui');
     }

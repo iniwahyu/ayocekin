@@ -11,13 +11,13 @@
             <div class="d-flex">
                 <ul class="navbar-nav">
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Total Topup <span class="badge badge-primary">2038</span></a>
+                        <a class="nav-link" href="javascript:void(0);">Total Topup <span id="countTopup" class="badge badge-primary">0</span></a>
                     </li>
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Pembelian Topup di Eksekusi <span class="badge badge-success">2000</span></a>
+                        <a class="nav-link" href="javascript:void(0);">Pembelian Topup di Eksekusi <span id="countTopupProcess" class="badge badge-success">0</span></a>
                     </li>
                     <li class="nav-item hidden-on-mobile">
-                        <a class="nav-link" href="#">Topup belum di Eksekusi <span class="badge badge-danger">38</span></a>
+                        <a class="nav-link" href="javascript:void(0);">Topup belum di Eksekusi <span id="countTopupPending" class="badge badge-danger">0</span></a>
                     </li>
                 </ul>
                 {{-- <ul class="navbar-nav">
