@@ -209,6 +209,7 @@
     <script src="{{ url('') }}/assets_landing/js/jquery.min.js"></script>
     <script src="{{ url('') }}/assets_landing/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url('') }}/assets_landing/vendor/OwlCarousel/owl.carousel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.18/dist/sweetalert2.all.min.js"></script>
     @yield('js-library')
     <script src="{{ url('') }}/assets_landing/js/custom.js"></script>
     <script src="{{ url('') }}/assets_landing/js/night-mode.js"></script>
@@ -247,6 +248,24 @@
             window.setTimeout(countDown, 1000);
         }
     </script>
+    @if ($message = session()->get('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Selamat',
+                text: '{{ $message }}',
+            })
+        </script>
+    @endif
+    @if ($message = session()->get('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Maaf',
+                text: '{{ $message }}',
+            })
+        </script>
+    @endif
     @yield('js')
 </body>
 
