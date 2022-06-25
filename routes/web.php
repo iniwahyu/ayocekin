@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/sandbox/mail-register', 'SandboxController@mailRegister');
 Route::get('/sandbox/mail-forgot', 'SandboxController@mailForgot');
 
-// Home
-Route::get('/', 'Landing\HomeController@index');
-
 /**
  * LANDING
  */
+// Home
+Route::get('/', 'Landing\HomeController@index');
+
+// Contact
+Route::get('/contact', 'Landing\ContactController@index');
+Route::post('/contact/store', 'Landing\ContactController@store');
+
 // Auth Buyer
 Route::get('/register', 'Landing\AuthController@register');
 Route::post('/register-proses', 'Landing\AuthController@registerProses');
