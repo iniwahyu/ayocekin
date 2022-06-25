@@ -88,14 +88,14 @@
                             <li class="nav-item">
                                 <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Home</a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Produk</a>
+                            </li> --}}
+                            <li class="nav-item">
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/contact') }}">Kontak</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Kontak</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/') }}">Tentang</a>
+                                <a class="nav-link text-color-primary fw-bold" href="{{ url('/about') }}">Tentang</a>
                             </li>
 
                             {{-- @if (session()->get('role') == 1)
