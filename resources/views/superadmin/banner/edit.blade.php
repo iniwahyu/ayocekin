@@ -26,6 +26,13 @@
             <form action="{{ url("$url/$banner->id") }}" method="post" enctype="multipart/form-data">
             @method('put')
                 @csrf
+                @if ($errors->any())
+                    @foreach ($errors->all() as $item)
+                    <div class="alert alert-danger" role="alert">
+                        {{ $item }}
+                    </div>
+                    @endforeach
+                @endif
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">

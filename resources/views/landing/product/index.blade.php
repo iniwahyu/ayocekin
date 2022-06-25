@@ -195,8 +195,8 @@
                             </div>
                         </div>
                         <input type="hidden" class="form-control" id="serviceDetail" name="services">
-                        <input type="text" class="form-control" id="payment" name="payment">
-                        <input type="text" class="form-control" id="paymentDetail" name="payment_detail">
+                        <input type="hidden" class="form-control" id="payment" name="payment">
+                        <input type="hidden" class="form-control" id="paymentDetail" name="payment_detail">
                         <button type="submit" class="act-btn btn-hover">Selesaikan Pesanan</button>
                     </div>
                 </div>

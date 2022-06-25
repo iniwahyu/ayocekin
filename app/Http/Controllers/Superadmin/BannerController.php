@@ -98,7 +98,7 @@ class BannerController extends Controller
     {
         // Validate
         $request->validate([
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:1024'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024'
         ]);
         
         // Photo

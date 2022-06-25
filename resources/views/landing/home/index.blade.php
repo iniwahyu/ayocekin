@@ -88,7 +88,7 @@
 </div>
 
 {{-- Testimonial --}}
-<div id="testimonial">
+{{-- <div id="testimonial">
     <div class="row justify-content-center">
         <div class="col mb-30">
             <div class="content-header">
@@ -107,7 +107,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 
 @section('js-library')
