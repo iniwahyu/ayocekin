@@ -124,7 +124,7 @@
                         <ul class="mn-icons-set align-self-stretch">
                             <li class="mn-icon dropdown dropdown-account">
                                 <a href="#" class="opts_account" role="button" data-bs-toggle="dropdown">
-                                    <img src="{{ url('') }}/assets_landing/images/left-imgs/img-1.jpg" alt="">
+                                    <img src="{{ url('') }}/assets_landing/images/logo.png" alt="">
                                     <i class="fas fa-caret-down arrow-icon"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-account dropdown-menu-end">
