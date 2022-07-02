@@ -101,10 +101,10 @@
                                 <div class="payment-detail text-center py-3">
                                     <h5>{{ $paymentDetail->nama }}</h5>
                                     <h4>{{ $paymentDetail->rekening }} ({{ $paymentDetail->nama_pemegang }})</h4>
-                                    @if ($paymentDetail->img_qrcode != null)
-                                        <img src="https://via.placeholder.com/350" alt="" style="width: 350px; height: 350px;">
-                                    @endif
                                     <h3 class="mb-0 mt-2" style="color: red;">{{ number_format(session()->get('price_new')) }}</h3>
+                                    @if ($paymentDetail->img_qrcode != null)
+                                        <img src="{{ url('upload/payment/qrcode/' . $paymentDetail->img_qrcode) }}" alt="" style="width: 350px; height: 350px;">
+                                    @endif
                                 </div>
                             </div>
                         </div>
