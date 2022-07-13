@@ -21,13 +21,21 @@
         </div>
     @endif
 
+    {{-- <div class="avatar">
+        <span class="badge rounded-pill badge-danger">99+</span>
+        <img src="..." alt="">
+    </div> --}}
+
     @foreach ($game as $g)
         <div class="col-sm-12 col-xl-6 box-col-6">
             <div class="card">
+                @if ($g->jGame == 2)
+                    <span class="badge rounded-pill badge-primary">Bundle</span>
+                @endif
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title text-center">
                         <h5 class="text-center">{{ $g->nama }}</h5>
-                        <a href="{{ url("$url/$g->id") }}"><img src="https://ayocekin.com/upload/game/{{ $g->img }}" class="img-fluid" alt="..."></a>
+                        <a href="{{ url("$url/$g->id") }}"><img src="https://ayocekin.com/upload/game/{{ $g->img }}" class="img-fluid" style="height: 150px;" alt="..."></a>
                     </div>
                 </div>
                 <div class="card-body">

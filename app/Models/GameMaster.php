@@ -41,6 +41,11 @@ class GameMaster extends Model
         return $this->hasMany(GameProduk::class, 'idGMaster', 'id');
     }
 
+    public function jg()
+    {
+        return $this->belongsTo(JenisGame::class, 'jGame', 'id');
+    }
+
     protected static function boot()
     {
         parent::boot();

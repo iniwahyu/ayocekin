@@ -64,7 +64,7 @@ class PaymentQrcodeController extends Controller
         if ($request->hasFile('photo2')) {
             $file       = $request->file('photo2');
             $fileName2   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/payment/qrcode/", $fileName);
+            $file->move(public_path(). "/upload/payment/qrcode/", $fileName2);
         }
         
         // Table user
@@ -114,30 +114,53 @@ class PaymentQrcodeController extends Controller
     public function update(Request $request, $id)
     {
          // Photo
-         if ($request->hasFile('photo')) {
+        //  if ($request->hasFile('photo')) {
+        //     $file       = $request->file('photo');
+        //     $fileName   = Str::uuid()."-".time().".".$file->extension();
+        //     $file->move(public_path(). "/upload/payment/qrcode/", $fileName);
+        // }
+
+        if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
             $fileName   = Str::uuid()."-".time().".".$file->extension();
-            $file->move(public_path(). "/upload/payment/qrcode/", $fileName);
+            $file->move(public_path(). "/upload/payment/qrcode/logo/", $fileName);
         }
 
-        $qrcode = $this->mPQrcode->where('id', $id)->first();
+        if ($request->hasFile('photo2')) {
+            $file       = $request->file('photo2');
+            $fileName2   = Str::uuid()."-".time().".".$file->extension();
+            $file->move(public_path(). "/upload/payment/qrcode/", $fileName2);
+        }
+
+        $qrcode = $this->mManual->where('id', $id)->first();
 
         // Table user
+        // $dataPaymentQrcode = [
+        //     'nama'          => $request->nama,
+        //     'rekening'      => $request->rekening,
+        //     'nama_pemegang' => $request->nama_pemegang,
+        //     'img'           => $fileName ?? $qrcode->img,
+        // ];
+        // $this->mManual->where('id', $id)->update($dataPaymentQrcode);
+
         $dataPaymentQrcode = [
             'nama'          => $request->nama,
             'rekening'      => $request->rekening,
             'nama_pemegang' => $request->nama_pemegang,
-            'img'           => $fileName ?? $qrcode->img,
+            'img'           => $fileName ?? null,
+            'img_qrcode'    => $fileName2 ?? null,
         ];
-        $this->mPQrcode->where('id', $id)->update($dataPaymentQrcode);
+        $this->mManual->where('id', $id)->update($dataPaymentQrcode);
 
         return redirect("$this->url")->with('sukses', 'Informasi Pembayaran QR Code Berhasil Di Perbarui');
     }
 
     public function destroy($id)
     {
-        $qrcode = $this->mPQrcode->where('id', $id)->first();
-        $this->mPQrcode->destroy($id);
+        // $qrcode = $this->mPQrcode->where('id', $id)->first();
+        $qrcode = $this->mManual->where('id', $id)->first();
+        
+        $this->mManual->destroy($id);
         
         $data = [
             'message' => "Pembayaran QR Code ".$qrcode->nama." Berhasil di hapus"

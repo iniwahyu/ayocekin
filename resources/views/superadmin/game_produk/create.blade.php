@@ -28,15 +28,46 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group">
-                                <label>Pilih Game</label>
-                                <select name="idGMaster" class="form-control">
-                                    <option value="">- Pilih Game -</option>
-                                    @foreach ($game as $g)
-                                        <option value="{{ $g->id }}">{{ $g->nama }}</option>
-                                    @endforeach
-                                </select>  
-                            </div>
+
+                            @if ( isset($idGMaster) )
+                                <div class="form-group">
+                                    <label>Pilih Game</label>
+                                    <select name="idGMaster" class="form-control" disabled>  
+                                        @foreach ($game as $g)
+                                            @if ($g->id == $idGMaster)
+                                                <option value="{{ $g->id }}">{{ $g->nama }}</option>
+                                                <input type="hidden" name="idGMaster" value="{{ $g->id }}">
+                                            @endif
+                                        @endforeach
+                                    </select> 
+                                </div>
+                                <div class="form-group">
+                                    <label>Pilih Urutan Bundle</label>
+                                    <select name="urutanBundle" required  class="form-control">
+                                        <option value="">- Pilih Urutan -</option>
+                                        @for ($i = 1; $i <= $gameMaster['jmlBundle']; $i++)
+                                            @foreach ($gameProduk as $gp)
+                                                @if ($gp->urutanBundle == $i) 
+                                                    <option disabled value="{{ $i }}">{{ $i }}</option>
+                                                @else
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endfor
+                                    </select>
+                                </div>
+                            @else 
+                                <div class="form-group">
+                                    <label>Pilih Game</label>
+                                        <select name="idGMaster" class="form-control">
+                                            <option value="">- Pilih Game -</option>
+                                            @foreach ($game as $g)
+                                                <option value="{{ $g->id }}">{{ $g->nama }}</option>
+                                            @endforeach
+                                        </select> 
+                                </div>
+                            @endif 
+
                             <div class="form-group">
                                 <label>Nama Produk Game</label>
                                 <input type="text" id="nama" class="form-control" name="nama" required>
@@ -59,6 +90,10 @@
                                     @endforeach
                                 </select> --}}
                                 
+                            </div>
+                            <div class="form-group form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="status">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Tampilkan Produk</label>
                             </div>
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>

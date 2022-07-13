@@ -30,7 +30,7 @@ class ProductController extends Controller
         // Get Data
         $games = $this->mGame->selectRaw('id, nama, img, deskripsi, qserver, panduan, create_time')->where('slug', $slug)->first();
         $products = $this->mGameProduk->selectRaw('id, nama, img, harga')->where('idGMaster', $games->id)->get();
-        $paymentManual = DB::table('payment_bank')->get();
+        $paymentManual = DB::table('payment_bank')->where('deleted_at', null)->get();
         $paymentQr = $this->mPaymentQr->all();
 
         // Variable

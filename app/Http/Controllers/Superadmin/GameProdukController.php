@@ -42,16 +42,21 @@ class GameProdukController extends Controller
         return view($this->views . "/index", $data);
     }
 
-    public function create()
+    public function create($id=null)
     {
         $game           = $this->mGame->all();
         $gambarProduk   = $this->mGambarProduk->all();
+        $gameMaster     = $this->mGame->where('id', $id)->first();
+        $gameProduk     = $this->mGameProduk->where('idGMaster', $id)->get();
 
         $data = [
             'title'         => 'Halaman Tambah Produk Game',
             'url'           => $this->url,
             'game'          => $game,
-            'gambarProduk'  => $gambarProduk
+            'gambarProduk'  => $gambarProduk,
+            'idGMaster'     => $id,
+            'gameMaster'    => $gameMaster,
+            'gameProduk'    => $gameProduk,
         ];
         // View
         return view($this->views . "/create", $data);
@@ -59,6 +64,7 @@ class GameProdukController extends Controller
 
     public function store(Request $request)
     {
+        // echo json_encode($request->all()); die;
         // Photo
         if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
@@ -86,7 +92,24 @@ class GameProdukController extends Controller
             'nama'      => $request->nama,
             'harga'     => $request->harga,
             'img'       => $fileName ?? null,
+            'status'    => $request->status ?? 'off',
         ];
+
+        $gameMaster     = $this->mGame->where('id', $request->idGMaster)->first();
+
+        // tambah urutan produk bundle
+        if($gameMaster['jGame'] == 2){
+            for ($i = 1; $i <= $gameMaster['jmlBundle']; $i++){
+                // cek unique urutan bundle, barangkali ada yang iseng inspect
+                foreach ($gameProduk as $gp){
+                    if ($gp->urutanBundle == $i){
+                        return redirect("$this->url")->with('error', 'Urutan Game Sudah terdaftar');
+                    }else{
+                        $dataGameProduk['urutanBundle'] = $request->urutanBundle;
+                    }
+                }
+            }
+        }
         $this->mGameProduk->create($dataGameProduk);
 
         return redirect("$this->url")->with('success', 'Berhasil Menambahkan Produk Game');
@@ -95,11 +118,14 @@ class GameProdukController extends Controller
     public function show($id)
     {
         $gameProduk         = $this->mGameProduk->where('idGMaster', $id)->get();
+        $gameMaster         = $this->mGame->where('id', $id)->first();
 
         $data = [
             'title'         => $this->title,
             'url'           => $this->url,
-            'gameProduk'    => $gameProduk
+            'idGMaster'     => $id,
+            'gameProduk'    => $gameProduk,
+            'gameMaster'    => $gameMaster
         ];
         // View
         return view($this->views . "/show", $data);
@@ -151,6 +177,7 @@ class GameProdukController extends Controller
             'nama'      => $request->nama,
             'harga'     => $request->harga,
             'img'       => $fileName ?? $gameProduk->img,
+            'status'    => $request->status ?? 'off',
         ];
         $this->mGameProduk->where('id', $id)->update($dataGameProduk);
 

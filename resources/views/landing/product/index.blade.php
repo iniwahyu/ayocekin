@@ -117,15 +117,17 @@
                     @endif
                     <div class="row">
                         @forelse ($products as $product)
-                        <div class="col-xl-3 col-md-6 col-sm-12">
-                            <div class="ppuser-card mb-2 services" data-id="{{ $product->id }}">
-                                <div class="ppuser-img">
-                                    <img class="ft-plus-square job-bg-circle bg-cyan mr-0" src="{{ url('upload/game/produk/' . $product->img) }}" alt="">
+                            @if ($product->status == 'on')
+                                <div class="col-xl-3 col-md-6 col-sm-12">
+                                    <div class="ppuser-card mb-2 services" data-id="{{ $product->id }}">
+                                        <div class="ppuser-img">
+                                            <img class="ft-plus-square job-bg-circle bg-cyan mr-0" src="{{ url('upload/game/produk/' . $product->img) }}" alt="">
+                                        </div>
+                                        <a href="#" class="job-heading text-center">{{ $product->nama }}</a>
+                                        <h5>Rp{{ number_format($product->harga) }}</h5>
+                                    </div>
                                 </div>
-                                <a href="#" class="job-heading text-center">{{ $product->nama }}</a>
-                                <h5>Rp{{ number_format($product->harga) }}</h5>
-                            </div>
-                        </div>
+                            @endif
                         @empty
                         <div class="col-sm-12">
                             <div class="alert alert-warning alert-action text-center">
@@ -169,7 +171,16 @@
                                     <div class="col-sm-12 my-2">
                                         <div class="item payment-detail py-4" data-id="{{ $pm->id }}">
                                             <div class="product-left">
-                                                <img class="ft-plus-square product-bg-circle bg-cyan mr-0" src="{{ url('upload/bank/' . $pm->img) }}" alt="">
+                                                @switch($pm->idPayment)
+                                                    @case(2)
+                                                        <img class="ft-plus-square product-bg-circle bg-cyan mr-0" src="{{ url('upload/bank/' . $pm->img) }}" alt="">
+                                                        @break
+                                                    @case(3)
+                                                        <img class="ft-plus-square product-bg-circle bg-cyan mr-0" src="{{ url('upload/payment/qrcode/logo/' . $pm->img) }}" alt="">
+                                                        @break
+                                                    @default
+                                                        
+                                                @endswitch
                                             </div>
                                             <div class="product-body">
                                                 <p class="job-heading mb-0">{{ $pm->nama }}</p>

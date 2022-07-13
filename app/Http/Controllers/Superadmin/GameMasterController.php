@@ -14,6 +14,7 @@ use DataTables;
 
 use App\Models\GameMaster;
 use App\Models\QServer;
+use App\Models\JenisGame;
 
 class GameMasterController extends Controller
 {
@@ -23,8 +24,9 @@ class GameMasterController extends Controller
 
     public function __construct()
     {
-        $this->mGame = new GameMaster();
+        $this->mGame    = new GameMaster();
         $this->mQServer = new QServer();
+        $this->mJGame   = new JenisGame();
     }
 
     public function index()
@@ -43,10 +45,13 @@ class GameMasterController extends Controller
     public function create()
     {
         $qserver = $this->mQServer->all();
+        $jGame = $this->mJGame->all();
+
         $data = [
             'title'         => 'Halaman Tambah Game',
             'url'           => $this->url,
-            'qserver'       => $qserver
+            'qserver'       => $qserver,
+            'jGame'       => $jGame,
         ];
         // View
         return view($this->views . "/create", $data);
@@ -54,6 +59,7 @@ class GameMasterController extends Controller
 
     public function store(Request $request)
     {
+        // echo json_encode($request->all()); die;
         // Photo
         if ($request->hasFile('photo')) {
             $file       = $request->file('photo');
@@ -80,6 +86,12 @@ class GameMasterController extends Controller
             'qserver'   => $request->qserver,
             'img'       => $fileName ?? null,
             'panduan'   => $fileName1 ?? null,
+            'jGame'     => $request->jGame,
+
+            'waktuClose'    => $request->waktuClose,
+            'jamReset'      => $request->jamReset,
+            'jamOpen'       => $request->jamOpen,
+            'jamClose'      => $request->jamClose,
         ];
         $this->mGame->create($dataGame);
 
@@ -163,13 +175,16 @@ class GameMasterController extends Controller
                             </div>';
                     return $html;
                 })
+                ->editColumn('jGame', function($data){
+                    return $data->jg->nama;
+                })
                 ->editColumn('img', function($data){
                     return '<img class="avatar" src="'.url("/upload/game/$data->img").'">';
                 })
                 ->editColumn('panduan', function($data){
                     return '<img class="avatar" src="'.url("/upload/game/panduan/$data->panduan").'">';
                 })
-                ->rawColumns(['actions','img', 'panduan'])
+                ->rawColumns(['actions','img', 'panduan', 'jGame'])
                 ->make(true);
     }
 

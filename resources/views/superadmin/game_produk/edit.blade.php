@@ -67,6 +67,10 @@
                                 </select> --}}
                                 
                             </div>
+                            <div class="form-group form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" name="status" {{ $gameProduk->status=='on' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Tampilkan Produk</label>
+                            </div>
                             <div class="form-group mt-3">
                                 <button type="submit" class="btn btn-primary">SIMPAN</button>
                             </div>

@@ -79,6 +79,9 @@ Route::middleware(['super'])->group(function () {
     // Dashboard
     Route::get('/superadmin/dashboard/count-topup', 'Superadmin\DashboardController@countTopup');
 
+    // Pengecualian
+    Route::get('/superadmin/game_produk/create/{id}', 'Superadmin\GameProdukController@create'); 
+
     // resource
     Route::resource('/superadmin/order', 'Superadmin\OrderTopupController');
     Route::resource('/superadmin/dashboard', 'Superadmin\DashboardController');

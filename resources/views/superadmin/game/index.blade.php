@@ -41,6 +41,7 @@
                             <th>Nama</th>
                             <th>Deskripsi</th>
                             <th>Panduan</th>
+                            <th>Jenis Game</th>
                             <th width="10%">Aksi</th>
                         </tr>
                     </thead>
@@ -81,6 +82,7 @@
                 {data: 'nama', name: 'nama'},
                 {data: 'deskripsi', name: 'deskripsi'},
                 {data: 'panduan', name: 'panduan'},
+                {data: 'jGame', name: 'jGame'},
                 {data: 'actions', name: 'actions', orderable: false, searchable: false},
             ]
         });

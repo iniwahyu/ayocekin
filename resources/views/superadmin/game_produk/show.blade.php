@@ -19,7 +19,7 @@
                         <h5 class="card-title">{{ $title ?? '-' }}</h5>
                     </div>
                     <div class="col-lg-6">
-                        <a href="{{ url("$url/create") }}" class="btn btn-primary btn-sm float-end">Tambah Data</a>
+                        <a href="{{ url("$url/create/$idGMaster") }}" class="btn btn-primary btn-sm float-end">Tambah Data</a>
                     </div>
                 </div>
             </div>
@@ -31,6 +31,10 @@
                             <th>Logo</th>
                             <th>Nama</th>
                             <th>Harga</th>
+                            <th>Status</th>
+                            @if($gameMaster['jGame'] == 2)
+                                <th>Urutan Bundle</th>
+                            @endif
                             <th width="10%">Aksi</th>
                         </tr>
                     </thead>
@@ -41,6 +45,10 @@
                                 <td><img src="https://ayocekin.com/upload/game/produk/{{ $gp->img }}" style="width:25px;height:25px;" alt=""></td>
                                 <td>{{ $gp->nama }}</td>
                                 <td>{{ $gp->harga }}</td>
+                                <td>{{ $gp->status }}</td>
+                                @if($gameMaster['jGame'] == 2)
+                                    <td>{{ $gp->urutanBundle }}</td>
+                                @endif
                                 <td>
                                     <div class="btn-group">
                                         <a href="{{ url("$url/$gp->id/edit") }}" class="btn btn-primary btn-sm"><i class="material-icons">edit</i></a>
