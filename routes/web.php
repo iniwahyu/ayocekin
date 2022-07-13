@@ -23,6 +23,9 @@ Route::get('/', 'Landing\HomeController@index');
 Route::get('/contact', 'Landing\ContactController@index');
 Route::post('/contact/store', 'Landing\ContactController@store');
 
+// About
+Route::get('/about', 'Landing\AboutController@index');
+
 // Auth Buyer
 Route::get('/register', 'Landing\AuthController@register');
 Route::post('/register-proses', 'Landing\AuthController@registerProses');
