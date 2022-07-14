@@ -2524,8 +2524,8 @@ textarea.comment-textarea {
 .footer-bottom-items {
     float: left;
     width: 100%;
-    border-top: 1px solid #efefef;
-    margin-top: 35px;
+    /* border-top: 1px solid #efefef;
+    margin-top: 35px; */
     padding: 30px 0;
     text-align: center;
 }
