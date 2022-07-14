@@ -35,11 +35,10 @@
                             <img class="ft-plus-square et-plus-square2 bg-cyan me-0" src="{{ url('upload/game/' . $order->game_image) }}" alt="" style="width: 60px; height: 60px;">
                         </div>
                         <div class="media-body">
-                            <a href="#" class="job-heading pt-0">{{ $order->game_name }} - {{ $order->product_name }}</a>
+                            <a href="javascript:void(0);" class="job-heading pt-0">{{ $order->game_name }} - {{ $order->product_name }}</a>
                             <p class="notification-text font-small-4">
                                 <a href="{{ url("$url/detail/" . $order->kode_invoice) }}" target="_blank" class="cmpny-dt">{{ $order->kode_invoice }}</a>
-                                {{-- <span class="job-loca"><i class="fas fa-location-arrow"></i></span> --}}
-                                <a href="#" class="oflst125"><i class="fas fa-user-friends me-2"></i>{{ $order->create_time }}</a>
+                                <a href="javascript:void(0);" class="oflst125"><i class="fas fa-user-friends me-2"></i>{{ $order->create_time }}</a>
                             </p>
                         </div>
                         <div class="media-btns">
@@ -63,21 +62,7 @@
 @section('js')
 <script>
     $(function() {
-        $("#table").DataTable();
-        // Table
-        // $.getJSON(baseUrl + '{{ $url }}/get-data', (result) => {
-        //     let html = '';
-        //     $.each(result.data, (i, item) => {
-        //         html += '<tr>';
-        //             html += '<td>'+item.create_time+'</td>';
-        //             html += '<td>'+item.kode_invoice+'</td>';
-        //             html += '<td>'+item.game_name+'</td>';
-        //             html += '<td>'+item.product_name+'</td>';
-        //             html += '<td>'+item.harga+'</td>';
-        //         html += '</tr>';
-        //     });
-        //     $("#table").append(html);
-        // });
+        
     });  
 </script>
 @endsection
