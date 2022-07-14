@@ -189,16 +189,16 @@
                                 <img class="logo-inverse" src="{{ url('') }}/assets_landing/images/dark-logo.png" alt="">
                             </div>
                             <div class="footer-description py-3">
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda enim nisi adipisci illum at temporibus voluptatem accusantium ipsum, corrupti voluptatum beatae molestias, qui minus. Cupiditate voluptates quia ullam est et?</p>
+                                
                             </div>
                             <div class="micko-copyright">
                                 <p><i class="fas fa-copyright"></i>Copyright {{ date('Y') }}. All Right Reserved.</p>
                             </div>
-                            <ul class="social-ft-links">
+                            {{-- <ul class="social-ft-links">
                                 <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
